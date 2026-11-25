@@ -1,0 +1,1873 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HookForge Studio — 4K Viral Hook & Script Engine</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* Base Custom Glassmorphism & 4K Crisp Styling */
+    :root {
+      --bg-base: #06080f;
+      --glass-bg: rgba(17, 23, 38, 0.58);
+      --glass-bg-elevated: rgba(24, 32, 52, 0.72);
+      --glass-border: rgba(255, 255, 255, 0.11);
+      --glass-highlight: rgba(255, 255, 255, 0.06);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-glow: rgba(16, 185, 129, 0.25);
+    }
+
+    html.light {
+      --bg-base: #eef2f9;
+      --glass-bg: rgba(255, 255, 255, 0.68);
+      --glass-bg-elevated: rgba(255, 255, 255, 0.86);
+      --glass-border: rgba(15, 23, 42, 0.10);
+      --glass-highlight: rgba(255, 255, 255, 0.85);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --accent-glow: rgba(16, 185, 129, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      transition: background-color 0.35s ease, color 0.35s ease;
+    }
+
+    /* Ambient 4K Background Orbs */
+    .ambient-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(110px);
+      opacity: 0.55;
+      animation: floatOrb 18s ease-in-out infinite alternate;
+    }
+
+    html.light .orb {
+      opacity: 0.38;
+    }
+
+    .orb-1 {
+      width: 520px;
+      height: 520px;
+      top: -120px;
+      left: -100px;
+      background: radial-gradient(circle, #10b981 0%, transparent 70%);
+    }
+
+    .orb-2 {
+      width: 600px;
+      height: 600px;
+      bottom: -160px;
+      right: -120px;
+      background: radial-gradient(circle, #6366f1 0%, transparent 70%);
+      animation-delay: -6s;
+    }
+
+    .orb-3 {
+      width: 420px;
+      height: 420px;
+      top: 40%;
+      left: 48%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, #06b6d4 0%, transparent 70%);
+      animation-delay: -11s;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, -25px) scale(1.06); }
+      100% { transform: translate(-25px, 20px) scale(0.96); }
+    }
+
+    /* Ultra-Crisp Glass Panels */
+    .glass-panel {
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 0 var(--glass-highlight);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.35s ease;
+    }
+
+    .glass-card {
+      background: var(--glass-bg-elevated);
+      backdrop-filter: blur(20px) saturate(170%);
+      -webkit-backdrop-filter: blur(20px) saturate(170%);
+      border: 1px solid var(--glass-border);
+      box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.14),
+        inset 0 1px 0 0 var(--glass-highlight);
+      transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .glass-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(16, 185, 129, 0.42);
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.24),
+        0 0 24px var(--accent-glow),
+        inset 0 1px 0 0 var(--glass-highlight);
+    }
+
+    .glass-input {
+      background: rgba(15, 23, 42, 0.45);
+      border: 1px solid var(--glass-border);
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+    }
+
+    html.light .glass-input {
+      background: rgba(255, 255, 255, 0.78);
+    }
+
+    .glass-input:focus {
+      outline: none;
+      border-color: #10b981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.3);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(148, 163, 184, 0.5);
+    }
+
+    /* Modal Animation */
+    .modal-backdrop {
+      background: rgba(3, 7, 18, 0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-entry {
+      animation: fadeSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-emerald-500/30 selection:text-emerald-200">
+
+  <!-- Ambient 4K Orbs -->
+  <div class="ambient-canvas" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Top Glass Navigation Bar -->
+  <header class="sticky top-0 z-40 px-4 sm:px-6 pt-3">
+    <nav class="max-w-7xl mx-auto glass-panel rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+      <!-- Brand Logo -->
+      <a href="#top" onclick="switchView('generator'); return false;" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 via-teal-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-emerald-500/25 group-hover:scale-105 transition-transform">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-base sm:text-lg tracking-tight">HookForge</span>
+            <span class="text-[10px] font-mono font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">4K Studio</span>
+            <span id="proActiveBadge" class="hidden text-[10px] font-mono font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 shadow-md shadow-amber-500/30">PRO ACTIVE</span>
+          </div>
+          <p class="text-[11px] text-slate-400 hidden sm:block">50+ Proven Retention Hooks & Scripts</p>
+        </div>
+      </a>
+
+      <!-- Center Navigation Links -->
+      <div class="hidden md:flex items-center gap-1 bg-slate-900/25 dark:bg-slate-950/40 p-1 rounded-xl border border-white/5">
+        <button onclick="switchView('generator')" id="nav-generator" class="nav-pill px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all bg-emerald-500 text-slate-950 shadow-sm">
+          Hook Engine
+        </button>
+        <button onclick="switchView('favorites')" id="nav-favorites" class="nav-pill px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white transition-all flex items-center gap-1.5">
+          Saved
+          <span id="fav-count-badge" class="text-[11px] font-mono px-1.5 py-0.2 rounded-full bg-white/10">0</span>
+        </button>
+        <button onclick="openModal('pricingModal')" class="px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-400 hover:text-emerald-400 transition-all">
+          Pro Access
+        </button>
+        <button onclick="openModal('aboutModal')" class="px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-400 hover:text-emerald-400 transition-all">
+          About Us
+        </button>
+        <button onclick="openModal('contactModal')" class="px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-400 hover:text-emerald-400 transition-all">
+          Contact
+        </button>
+      </div>
+
+      <!-- Right Controls: Theme Toggle & Quick Pro CTA -->
+      <div class="flex items-center gap-2.5">
+        <!-- Mobile Saved Button -->
+        <button onclick="switchView('favorites')" class="md:hidden glass-card px-2.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1" title="Saved Hooks">
+          <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+          <span id="mobile-fav-badge" class="font-mono">0</span>
+        </button>
+
+        <!-- Dark / Light Theme Toggle -->
+        <button id="themeToggleBtn" onclick="toggleTheme()" aria-label="Toggle Dark or Light Mode" class="glass-card p-2.5 rounded-xl flex items-center gap-2 text-xs font-semibold hover:border-emerald-400/50 transition-all cursor-pointer">
+          <svg id="sunIcon" class="w-4 h-4 text-amber-400 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5" />
+            <path stroke-linecap="round" d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+          </svg>
+          <svg id="moonIcon" class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+          <span id="themeLabel" class="hidden sm:inline">Dark</span>
+        </button>
+
+        <button id="headerUpgradeBtn" onclick="openModal('pricingModal')" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 shadow-lg shadow-emerald-500/25 hover:brightness-110 active:scale-95 transition-all cursor-pointer">
+          Upgrade Pro
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Workspace -->
+  <main id="top" class="relative z-10 flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+
+    <!-- Hero Header -->
+    <section class="text-center max-w-3xl mx-auto mb-8">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-card text-xs font-medium mb-4">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Dynamic Retention Engine — 50 Unique Hooks Per Topic</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-3">
+        Stop Losing Viewers in the <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-indigo-400 bg-clip-text text-transparent">First 3 Seconds.</span>
+      </h1>
+      <p class="text-sm sm:text-base text-slate-400 dark:text-slate-300/80 max-w-2xl mx-auto">
+        Enter your niche, target audience, and desired outcome. HookForge dynamically engineers <strong>50 custom scroll-stopping hooks</strong> and 60-second mini-scripts tailored specifically to your exact inputs.
+      </p>
+    </section>
+
+    <!-- VIEW 1: HOOK GENERATOR WORKSPACE -->
+    <div id="generatorView" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- Left Control Panel (Inputs) -->
+      <aside class="lg:col-span-4 glass-panel rounded-3xl p-5 sm:p-6 lg:sticky lg:top-24">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-base font-bold flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+            Hook Parameters
+          </h2>
+          <button onclick="resetInputs()" class="text-xs text-slate-400 hover:text-emerald-400 transition-colors cursor-pointer">
+            Reset
+          </button>
+        </div>
+
+        <!-- Quick 1-Click Presets -->
+        <div class="mb-5">
+          <label class="block text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">
+            1-Click Instant Presets
+          </label>
+          <div class="flex flex-wrap gap-1.5">
+            <button type="button" onclick="applyPreset('freelance')" class="text-xs px-2.5 py-1.5 rounded-lg glass-card hover:border-emerald-400/50 transition-all cursor-pointer">
+              💼 Freelance Proposals
+            </button>
+            <button type="button" onclick="applyPreset('ecommerce')" class="text-xs px-2.5 py-1.5 rounded-lg glass-card hover:border-emerald-400/50 transition-all cursor-pointer">
+              🛍️ E-Commerce Sales
+            </button>
+            <button type="button" onclick="applyPreset('fitness')" class="text-xs px-2.5 py-1.5 rounded-lg glass-card hover:border-emerald-400/50 transition-all cursor-pointer">
+              💪 Fat Loss & Gym
+            </button>
+            <button type="button" onclick="applyPreset('ai')" class="text-xs px-2.5 py-1.5 rounded-lg glass-card hover:border-emerald-400/50 transition-all cursor-pointer">
+              🤖 AI & Automation
+            </button>
+          </div>
+        </div>
+
+        <form id="hookForm" onsubmit="handleGenerate(event)" class="space-y-4">
+          <!-- Topic / Niche -->
+          <div>
+            <label for="topicInput" class="block text-xs font-semibold mb-1.5">
+              1. Your Niche / Topic / Product <span class="text-emerald-400">*</span>
+            </label>
+            <input
+              type="text"
+              id="topicInput"
+              required
+              value="writing Upwork proposals"
+              placeholder="e.g., digital marketing, fat loss, watches"
+              class="w-full glass-input rounded-xl px-3.5 py-2.5 text-sm"
+            />
+          </div>
+
+          <!-- Target Audience -->
+          <div>
+            <label for="audienceInput" class="block text-xs font-semibold mb-1.5">
+              2. Target Audience <span class="text-emerald-400">*</span>
+            </label>
+            <input
+              type="text"
+              id="audienceInput"
+              required
+              value="beginner freelancers"
+              placeholder="e.g., busy students, agency owners, moms"
+              class="w-full glass-input rounded-xl px-3.5 py-2.5 text-sm"
+            />
+          </div>
+
+          <!-- Desired Outcome / Pain Point -->
+          <div>
+            <label for="outcomeInput" class="block text-xs font-semibold mb-1.5">
+              3. Main Goal or Pain Point <span class="text-emerald-400">*</span>
+            </label>
+            <input
+              type="text"
+              id="outcomeInput"
+              required
+              value="landing high-paying international clients"
+              placeholder="e.g., losing 5kg fast, closing WhatsApp orders"
+              class="w-full glass-input rounded-xl px-3.5 py-2.5 text-sm"
+            />
+          </div>
+
+          <!-- Platform & Hook Tone -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="platformSelect" class="block text-xs font-semibold mb-1.5">
+                4. Platform
+              </label>
+              <select id="platformSelect" class="w-full glass-input rounded-xl px-3 py-2.5 text-sm cursor-pointer">
+                <option value="YouTube Shorts">YouTube Shorts</option>
+                <option value="TikTok">TikTok</option>
+                <option value="Instagram Reels">Instagram Reels</option>
+                <option value="X / LinkedIn">X / LinkedIn</option>
+              </select>
+            </div>
+            <div>
+              <label for="categorySelect" class="block text-xs font-semibold mb-1.5">
+                5. Hook Angle
+              </label>
+              <select id="categorySelect" onchange="filterHooks()" class="w-full glass-input rounded-xl px-3 py-2.5 text-sm cursor-pointer">
+                <option value="All">All 50 Hooks (Mix)</option>
+                <option value="Curiosity">Curiosity & Secrets</option>
+                <option value="Contrarian">Contrarian & Shocking</option>
+                <option value="Mistakes">Mistakes & Warnings</option>
+                <option value="Story">Story & Social Proof</option>
+                <option value="Actionable">Step-by-Step & Hacks</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Primary Generate CTA -->
+          <button
+            type="submit"
+            class="w-full py-3.5 px-5 rounded-xl font-bold text-sm bg-gradient-to-r from-emerald-400 via-teal-400 to-indigo-500 text-slate-950 shadow-xl shadow-emerald-500/20 hover:brightness-110 active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            <span>Generate 50 Custom Hooks</span>
+          </button>
+        </form>
+
+        <!-- Engine Status Footer -->
+        <div class="mt-5 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+          <span>Engine: <strong class="text-emerald-400 font-mono">v4.2 Local-Instant</strong></span>
+          <span>Latency: <strong class="font-mono">0.02s</strong></span>
+        </div>
+      </aside>
+
+      <!-- Right Results Feed (50 Hooks Output) -->
+      <section class="lg:col-span-8 space-y-4">
+        <!-- Toolbar -->
+        <div class="glass-panel rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-2.5">
+            <span id="resultsCountBadge" class="px-3 py-1 rounded-lg bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-mono text-xs font-bold">
+              50 Hooks Ready
+            </span>
+            <span id="tierStatusPill" class="px-2.5 py-1 rounded-lg bg-amber-500/15 text-amber-400 border border-amber-500/30 font-mono text-[11px] font-semibold">
+              Free Tier: 10 Unlocked
+            </span>
+            <span id="activeContextSummary" class="text-xs text-slate-400 truncate max-w-[180px] sm:max-w-xs hidden md:inline">
+              Tailored for beginner freelancers
+            </span>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- Live Search Filter -->
+            <div class="relative flex-grow sm:flex-grow-0">
+              <input
+                type="text"
+                id="searchHooksInput"
+                oninput="filterHooks()"
+                placeholder="Search inside hooks..."
+                class="w-full sm:w-44 glass-input rounded-xl pl-8 pr-3 py-1.5 text-xs"
+              />
+              <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8" />
+                <path stroke-linecap="round" d="M21 21l-4.35-4.35" />
+              </svg>
+            </div>
+
+            <!-- Shuffle Order -->
+            <button onclick="shuffleHooks()" class="glass-card px-3 py-1.5 rounded-xl text-xs font-semibold hover:border-emerald-400/50 transition-all flex items-center gap-1.5 cursor-pointer" title="Shuffle Hook Order">
+              <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              <span>Shuffle</span>
+            </button>
+
+            <!-- Export TXT -->
+            <button onclick="exportAllHooks()" class="glass-card px-3 py-1.5 rounded-xl text-xs font-semibold hover:border-emerald-400/50 transition-all flex items-center gap-1.5 cursor-pointer" title="Download all 50 hooks as .txt">
+              <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              <span>Export .TXT</span>
+              <span id="exportProLockIcon" class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-400">PRO</span>
+            </button>
+          </div>
+        </div>
+  <!-- 5. PRO UPGRADE / PAYMENT & UNLOCK MODAL -->
+  <div id="pricingModal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-3 sm:p-4" onclick="closeModalOnBackdrop(event, 'pricingModal')">
+    <div class="glass-panel rounded-3xl max-w-3xl w-full max-h-[92vh] overflow-y-auto p-5 sm:p-7 animate-entry">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-4 border-b border-white/10">
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 class="text-lg sm:text-xl font-extrabold">Upgrade to HookForge Pro</h2>
+            <span id="modalProStatusTag" class="hidden text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">UNLOCKED</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">Unlock all 50 dynamic hooks, 60s viral scripts, and bulk .TXT exports.</p>
+        </div>
+        <button onclick="closeModal('pricingModal')" class="p-2 rounded-xl glass-card hover:text-rose-400 cursor-pointer" aria-label="Close modal">✕</button>
+      </div>
+
+      <!-- Step 1: Plan Switcher (Monthly vs Yearly) -->
+      <div class="pt-5">
+        <div class="flex items-center justify-between mb-2.5">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Step 1: Select Billing Plan</span>
+          <span class="text-[11px] font-mono text-emerald-400">Save 44% on Yearly</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Monthly Option -->
+          <button type="button" id="planMonthlyBtn" onclick="selectBillingPlan('monthly')" class="glass-card rounded-2xl p-4 text-left border-2 border-emerald-400 bg-emerald-500/10 transition-all cursor-pointer relative">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono uppercase tracking-wider font-bold text-emerald-400">Monthly Pro</span>
+              <span id="monthlyCheckIcon" class="w-5 h-5 rounded-full bg-emerald-400 text-slate-950 flex items-center justify-center text-xs font-extrabold">✓</span>
+            </div>
+            <div class="mt-1.5 flex items-baseline gap-2">
+              <span class="text-2xl sm:text-3xl font-extrabold">$15</span>
+              <span class="text-xs text-slate-400">/ month</span>
+              <span class="text-xs font-mono text-emerald-400 ml-auto">~4,200 PKR</span>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1">Flexible monthly access • Cancel anytime</p>
+          </button>
+
+          <!-- Yearly Option -->
+          <button type="button" id="planYearlyBtn" onclick="selectBillingPlan('yearly')" class="glass-card rounded-2xl p-4 text-left border-2 border-transparent hover:border-indigo-400/50 transition-all cursor-pointer relative">
+            <div class="absolute -top-2.5 right-3 px-2 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 text-[10px] font-extrabold uppercase tracking-wider">
+              Best Value • Save 44%
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono uppercase tracking-wider font-bold text-indigo-400">Yearly Pro</span>
+              <span id="yearlyCheckIcon" class="w-5 h-5 rounded-full border border-white/20 text-transparent flex items-center justify-center text-xs font-extrabold">✓</span>
+            </div>
+            <div class="mt-1.5 flex items-baseline gap-2">
+              <span class="text-2xl sm:text-3xl font-extrabold">$99.9</span>
+              <span class="text-xs text-slate-400">/ year</span>
+              <span class="text-xs font-mono text-indigo-400 ml-auto">~27,900 PKR</span>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1">12 months full access + Agency commercial rights</p>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Payment Method Tabs -->
+      <div class="pt-5">
+        <span class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">Step 2: Choose Payment Method</span>
+
+        <div class="grid grid-cols-2 gap-2 p-1 rounded-2xl bg-slate-950/40 border border-white/10 mb-4">
+          <button type="button" id="tabLocalBtn" onclick="switchPaymentTab('local')" class="py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold bg-emerald-500 text-slate-950 transition-all cursor-pointer">
+            🇵🇰 Pakistan (NayaPay / Easypaisa)
+          </button>
+          <button type="button" id="tabIntlBtn" onclick="switchPaymentTab('intl')" class="py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold text-slate-400 hover:text-white transition-all cursor-pointer">
+            🌍 International (Card / PayPal)
+          </button>
+        </div>
+
+        <!-- TAB A: PAKISTAN LOCAL (NAYAPAY & EASYPAISA) -->
+        <div id="paymentLocalPanel" class="space-y-4">
+          <div class="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+            <span>Selected Plan Amount: <strong id="localPlanLabel" class="text-emerald-400">Monthly Pro — 4,200 PKR ($15)</strong></span>
+            <span class="font-mono text-[11px] text-slate-400">Instant 24/7 Verification</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+            <!-- NayaPay Card -->
+            <div class="glass-card rounded-2xl p-4 space-y-2.5 border-indigo-400/30">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-extrabold uppercase tracking-wider text-indigo-400 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
+                  NayaPay Instant Transfer
+                </span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300">Raast / Bank</span>
+              </div>
+
+              <div class="space-y-2 text-xs">
+                <div class="flex items-center justify-between p-2 rounded-xl bg-slate-950/35 border border-white/5">
+                  <div>
+                    <span class="text-[10px] text-slate-400 block">Account Title</span>
+                    <strong class="font-semibold">Muhammad Shahid</strong>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between p-2 rounded-xl bg-slate-950/35 border border-white/5">
+                  <div>
+                    <span class="text-[10px] text-slate-400 block">Account Number</span>
+                    <strong class="font-mono text-sm">03265821580</strong>
+                  </div>
+                  <button type="button" onclick="copyStringToClipboard('03265821580')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-indigo-500/20 text-indigo-300 hover:bg-indigo-500 hover:text-white transition-all cursor-pointer">
+                    Copy
+                  </button>
+                </div>
+
+                <div class="flex items-center justify-between p-2 rounded-xl bg-slate-950/35 border border-white/5 gap-2">
+                  <div class="min-w-0">
+                    <span class="text-[10px] text-slate-400 block">NayaPay ID</span>
+                    <strong class="font-mono text-[11px] truncate block">muhammad.shahid326@nayapay</strong>
+                  </div>
+                  <button type="button" onclick="copyStringToClipboard('muhammad.shahid326@nayapay')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-indigo-500/20 text-indigo-300 hover:bg-indigo-500 hover:text-white transition-all shrink-0 cursor-pointer">
+                    Copy
+                  </button>
+                </div>
+
+                <div class="flex items-center justify-between p-2 rounded-xl bg-slate-950/35 border border-white/5 gap-2">
+                  <div class="min-w-0">
+                    <span class="text-[10px] text-slate-400 block">IBAN</span>
+                    <strong class="font-mono text-[11px] truncate block">PK55NAYA1234503265821580</strong>
+                  </div>
+                  <button type="button" onclick="copyStringToClipboard('PK55NAYA1234503265821580')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-indigo-500/20 text-indigo-300 hover:bg-indigo-500 hover:text-white transition-all shrink-0 cursor-pointer">
+                    Copy
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Easypaisa Card -->
+            <div class="glass-card rounded-2xl p-4 flex flex-col justify-between border-emerald-400/30">
+              <div class="space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    Easypaisa Mobile Account
+                  </span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300">Instant</span>
+                </div>
+
+                <div class="space-y-2 text-xs">
+                  <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/35 border border-white/5">
+                    <div>
+                      <span class="text-[10px] text-slate-400 block">Easypaisa Number</span>
+                      <strong class="font-mono text-sm">03089423733</strong>
+                      <span class="text-[10px] text-slate-400 block mt-0.5">Intl Format: +92 308 9423733</span>
+                    </div>
+                    <button type="button" onclick="copyStringToClipboard('03089423733')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500 hover:text-slate-950 transition-all cursor-pointer">
+                      Copy
+                    </button>
+                  </div>
+
+                  <div class="p-3 rounded-xl bg-slate-950/30 border border-white/5 text-[11px] text-slate-300 leading-relaxed">
+                    <strong>How to activate in 2 minutes:</strong><br />
+                    1. Transfer the plan fee to NayaPay or Easypaisa.<br />
+                    2. Tap the WhatsApp button below to send your payment screenshot.<br />
+                    3. Receive your instant <strong>Pro Unlock Key</strong>!
+                  </div>
+                </div>
+              </div>
+
+              <a id="whatsappVerifyLink" href="https://wa.me/923089423733?text=Assalam-o-Alaikum!%20I%20have%20paid%20for%20HookForge%20Pro%20(Monthly%20%2415%20/%204%2C200%20PKR).%20Here%20is%20my%20payment%20screenshot%20for%20the%20Unlock%20Key:" target="_blank" rel="noopener noreferrer" class="mt-3 w-full py-3 px-4 rounded-xl text-xs font-extrabold bg-gradient-to-r from-emerald-400 to-green-500 text-slate-950 shadow-lg shadow-emerald-500/25 hover:brightness-110 transition-all flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/>
+                </svg>
+                <span>Send Screenshot on WhatsApp (+92 308 9423733)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB B: INTERNATIONAL (GUMROAD CARD / PAYPAL) -->
+        <div id="paymentIntlPanel" class="hidden space-y-4">
+          <div class="glass-card rounded-2xl p-5 space-y-3 border-indigo-400/30">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <h3 class="text-sm font-extrabold">Instant Global Checkout via Gumroad</h3>
+                <p class="text-xs text-slate-400 mt-0.5">Supports Visa, Mastercard, Apple Pay, Google Pay & PayPal.</p>
+              </div>
+              <span id="intlPriceBadge" class="px-3 py-1 rounded-xl bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-mono text-xs font-extrabold">
+                Monthly: $15.00 USD
+              </span>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-950/35 border border-white/5 text-xs text-slate-300 space-y-1.5">
+              <p>✓ <strong>Automatic License Delivery:</strong> Immediately after completing checkout on Gumroad, your Pro Unlock Key appears on your receipt screen and email.</p>
+              <p>✓ <strong>Instant Activation:</strong> Paste that key into the activation box right below to unlock all 50 hooks and 60s scripts.</p>
+            </div>
+
+            <a href="https://mughalahmad7.gumroad.com" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-5 rounded-xl text-xs sm:text-sm font-extrabold bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-400 text-white shadow-xl hover:brightness-110 transition-all flex items-center justify-center gap-2">
+              <span id="gumroadCtaText">Continue to Gumroad Checkout ($15/mo) →</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Instant Unlock Key Activation Box -->
+      <div class="mt-5 pt-5 border-t border-white/10">
+        <label for="unlockKeyInput" class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-2">
+          Step 3: Already have an Unlock Key? Activate Instantly
+        </label>
+        <form onsubmit="handleActivateKey(event)" class="flex flex-col sm:flex-row gap-2.5">
+          <input
+            type="text"
+            id="unlockKeyInput"
+            placeholder="Enter your Pro License Key (e.g., HOOKPRO2026)"
+            class="flex-grow glass-input rounded-xl px-4 py-2.5 text-xs sm:text-sm font-mono uppercase tracking-wider"
+          />
+          <button type="submit" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 shadow-lg hover:brightness-110 transition-all cursor-pointer shrink-0">
+            Activate Pro Now
+          </button>
+        </form>
+        <p id="activationFeedback" class="text-[11px] text-slate-400 mt-1.5">
+          Unlocks all 50 hooks, full 60-second scripts, and .TXT bulk export on this device.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. CONTACT US MODAL -->
+  <div id="contactModal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4" onclick="closeModalOnBackdrop(event, 'contactModal')">
+    <div class="glass-panel rounded-3xl max-w-lg w-full max-h-[88vh] overflow-y-auto p-6 sm:p-8 animate-entry">
+      <div class="flex items-center justify-between pb-4 border-b border-white/10">
+        <div>
+          <h2 class="text-xl font-extrabold">Contact Us</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Questions, custom agency plans, or partnership inquiries.</p>
+        </div>
+        <button onclick="closeModal('contactModal')" class="p-2 rounded-xl glass-card hover:text-rose-400 cursor-pointer" aria-label="Close modal">✕</button>
+      </div>
+
+      <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-4 py-5">
+        <div>
+          <label class="block text-xs font-semibold mb-1.5">Full Name</label>
+          <input type="text" id="contactName" required placeholder="Enter your name" class="w-full glass-input rounded-xl px-3.5 py-2.5 text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold mb-1.5">Email Address</label>
+          <input type="email" id="contactEmail" required placeholder="you@example.com" class="w-full glass-input rounded-xl px-3.5 py-2.5 text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold mb-1.5">Inquiry Type</label>
+          <select id="contactSubject" class="w-full glass-input rounded-xl px-3.5 py-2.5 text-sm">
+            <option value="General Support">General Support</option>
+            <option value="Pro Access / Billing">Pro Access & Licensing</option>
+            <option value="Affiliate Partnership">Affiliate & Creator Partnership</option>
+            <option value="Feature Request">Feature Request</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold mb-1.5">Message</label>
+          <textarea id="contactMessage" rows="3" required placeholder="How can we help you grow?" class="w-full glass-input rounded-xl px-3.5 py-2.5 text-sm"></textarea>
+        </div>
+        <button type="submit" class="w-full py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 shadow-lg hover:brightness-110 transition-all cursor-pointer">
+          Send Message
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. PRIVACY POLICY MODAL -->
+  <div id="privacyModal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4" onclick="closeModalOnBackdrop(event, 'privacyModal')">
+    <div class="glass-panel rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 sm:p-8 animate-entry">
+      <div class="flex items-center justify-between pb-4 border-b border-white/10">
+        <div>
+          <h2 class="text-xl font-extrabold">Privacy Policy</h2>
+          <p class="text-xs text-slate-400 font-mono mt-0.5">Effective Date: November 2026</p>
+        </div>
+        <button onclick="closeModal('privacyModal')" class="p-2 rounded-xl glass-card hover:text-rose-400 cursor-pointer" aria-label="Close modal">✕</button>
+      </div>
+      <div class="space-y-4 py-5 text-xs sm:text-sm text-slate-300 leading-relaxed">
+        <h3 class="font-bold text-base text-emerald-400">1. Information We Collect</h3>
+        <p>
+          HookForge Studio operates on a privacy-first architecture. Your niche inputs, target audience parameters, generated hooks, and saved favorites are processed locally in your browser using <code>localStorage</code>. We do not sell, rent, or harvest your creative prompts.
+        </p>
+        <h3 class="font-bold text-base text-emerald-400">2. Voluntary Contact & Account Information</h3>
+        <p>
+          When you voluntarily submit our Contact Us form or upgrade to Pro Access, we collect only the name and email address necessary to respond to your inquiry or deliver your license credentials.
+        </p>
+        <h3 class="font-bold text-base text-emerald-400">3. Cookies & Local Storage</h3>
+        <p>
+          We use browser local storage solely to remember your Dark/Light theme preference and preserve your Saved Hook Vault across sessions. You may clear this data at any time through your browser settings or the "Clear Vault" button.
+        </p>
+        <h3 class="font-bold text-base text-emerald-400">4. Third-Party Services</h3>
+        <p>
+          Payment processing for optional Pro upgrades is handled securely by certified third-party payment processors (such as Gumroad). HookForge Studio never stores raw credit card or banking details on its servers.
+        </p>
+        <h3 class="font-bold text-base text-emerald-400">5. Your Rights & Contact</h3>
+        <p>
+          You have the right to request access to, correction of, or deletion of any personal communication you have sent us. Contact our privacy team anytime via the Contact Us form.
+        </p>
+      </div>
+      <div class="pt-3 border-t border-white/10 flex justify-end">
+        <button onclick="closeModal('privacyModal')" class="px-5 py-2 rounded-xl text-xs font-bold glass-card hover:border-emerald-400 cursor-pointer">
+          Close Policy
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. TERMS OF USE MODAL -->
+  <div id="termsModal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4" onclick="closeModalOnBackdrop(event, 'termsModal')">
+    <div class="glass-panel rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 sm:p-8 animate-entry">
+      <div class="flex items-center justify-between pb-4 border-b border-white/10">
+        <div>
+          <h2 class="text-xl font-extrabold">Terms of Use</h2>
+          <p class="text-xs text-slate-400 font-mono mt-0.5">Last Updated: November 2026</p>
+        </div>
+        <button onclick="closeModal('termsModal')" class="p-2 rounded-xl glass-card hover:text-rose-400 cursor-pointer" aria-label="Close modal">✕</button>
+      </div>
+      <div class="space-y-4 py-5 text-xs sm:text-sm text-slate-300 leading-relaxed">
+        <h3 class="font-bold text-base text-indigo-400">1. Acceptance of Terms</h3>
+        <p>
+          By accessing and using HookForge Studio, you agree to comply with and be bound by these Terms of Use. If you do not agree with any part of these terms, please discontinue use of the application.
+        </p>
+        <h3 class="font-bold text-base text-indigo-400">2. Commercial & Personal Content License</h3>
+        <p>
+          All hooks, scripts, and copy variations generated using your inputs in HookForge Studio are yours to use freely for personal, client, agency, and commercial social media content across YouTube, TikTok, Instagram, X, and LinkedIn without attribution.
+        </p>
+        <h3 class="font-bold text-base text-indigo-400">3. Prohibited Uses</h3>
+        <p>
+          You agree not to use HookForge Studio to generate deceptive, fraudulent, defamatory, or unlawful content, nor attempt to scrape, reverse-engineer, or redistribute the underlying application code as a competing template without authorization.
+        </p>
+        <h3 class="font-bold text-base text-indigo-400">4. Disclaimer of Warranties</h3>
+        <p>
+          While our hook frameworks are modeled on high-performing retention patterns, social media reach and sales conversions depend on video delivery, niche demand, and offer quality. HookForge Studio provides tools "as is" without guaranteed view counts or revenue outcomes.
+        </p>
+      </div>
+      <div class="pt-3 border-t border-white/10 flex justify-end">
+        <button onclick="closeModal('termsModal')" class="px-5 py-2 rounded-xl text-xs font-bold glass-card hover:border-indigo-400 cursor-pointer">
+          I Understand
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. PRO UPGRADE / PRICING MODAL -->
+  <div id="pricingModal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4" onclick="closeModalOnBackdrop(event, 'pricingModal')">
+    <div class="glass-panel rounded-3xl max-w-3xl w-full max-h-[88vh] overflow-y-auto p-6 sm:p-8 animate-entry">
+      <div class="flex items-center justify-between pb-4 border-b border-white/10">
+        <div>
+          <h2 class="text-xl font-extrabold">HookForge Pro Creator Pass</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Unlock commercial agency rights & viral script vaults.</p>
+        </div>
+        <button onclick="closeModal('pricingModal')" class="p-2 rounded-xl glass-card hover:text-rose-400 cursor-pointer" aria-label="Close modal">✕</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 py-6">
+        <!-- Free Tier -->
+        <div class="glass-card rounded-2xl p-5 flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-mono uppercase tracking-wider text-slate-400">Starter</span>
+            <div class="text-3xl font-extrabold mt-1">$0 <span class="text-xs font-normal text-slate-400">/ forever</span></div>
+            <p class="text-xs text-slate-400 mt-2">Everything you need to start crafting viral hooks today.</p>
+            <ul class="space-y-2.5 mt-5 text-xs text-slate-300">
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> 50 Dynamic Hooks per Topic</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> 60-Second Mini-Script Expander</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Local Saved Hook Vault</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> One-Click .TXT Export</li>
+            </ul>
+          </div>
+          <button onclick="closeModal('pricingModal')" class="mt-6 w-full py-2.5 rounded-xl text-xs font-bold glass-card hover:border-emerald-400 cursor-pointer">
+            Current Active Plan
+          </button>
+        </div>
+
+        <!-- Pro Tier -->
+        <div class="glass-card rounded-2xl p-5 border-emerald-400/50 relative flex flex-col justify-between">
+          <div class="absolute -top-3 right-4 px-2.5 py-0.5 rounded-full bg-emerald-400 text-slate-950 text-[10px] font-extrabold uppercase tracking-wider">
+            Most Popular
+          </div>
+          <div>
+            <span class="text-xs font-mono uppercase tracking-wider text-emerald-400">Pro Creator & Agency</span>
+            <div class="text-3xl font-extrabold mt-1">$19 <span class="text-xs font-normal text-slate-400">/ one-time</span></div>
+            <p class="text-xs text-slate-400 mt-2">For creators & agencies monetizing client scripts and content.</p>
+            <ul class="space-y-2.5 mt-5 text-xs text-slate-300">
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Unlimited Niche & Client Profiles</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Commercial Agency Client License</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> 100+ High-Ticket Cold Outreach Hooks</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Priority Support & Future Updates</li>
+            </ul>
+          </div>
+          <button onclick="triggerProCheckout()" class="mt-6 w-full py-3 rounded-xl text-xs font-extrabold bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 shadow-lg shadow-emerald-500/25 hover:brightness-110 cursor-pointer">
+            Unlock Pro License ($19)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Toast Notification -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 pointer-events-none flex flex-col gap-2"></div>
+
+  <script>
+    // =========================================================================
+    // 1. 50 DISTINCT, PROVEN VIRAL HOOK FRAMEWORKS (5 CATEGORIES x 10 EACH)
+    // =========================================================================
+    const HOOK_TEMPLATES = [
+      // --- CURIOSITY & SECRETS (10) ---
+      {
+        id: 1,
+        category: 'Curiosity',
+        score: 97,
+        build: (t, a, o, p) => `Nobody is talking about this hidden ${t} loophole for ${a} who want ${o}...`
+      },
+      {
+        id: 2,
+        category: 'Curiosity',
+        score: 95,
+        build: (t, a, o, p) => `I analyzed 500+ top performers in ${t}, and they all secretly do this one thing before ${o}.`
+      },
+      {
+        id: 3,
+        category: 'Curiosity',
+        score: 94,
+        build: (t, a, o, p) => `If you're ${a} struggling with ${o}, watch the next 15 seconds very carefully.`
+      },
+      {
+        id: 4,
+        category: 'Curiosity',
+        score: 96,
+        build: (t, a, o, p) => `The uncomfortable truth about ${t} that top ${a} never share publicly.`
+      },
+      {
+        id: 5,
+        category: 'Curiosity',
+        score: 92,
+        build: (t, a, o, p) => `Why do 95% of ${a} fail at ${t} while the top 5% make ${o} look effortless?`
+      },
+      {
+        id: 6,
+        category: 'Curiosity',
+        score: 93,
+        build: (t, a, o, p) => `There’s a silent shift happening in ${t} right now—and most ${a} are completely missing it.`
+      },
+      {
+        id: 7,
+        category: 'Curiosity',
+        score: 91,
+        build: (t, a, o, p) => `Here is what happens when you apply this one tiny ${t} tweak for just 7 days.`
+      },
+      {
+        id: 8,
+        category: 'Curiosity',
+        score: 95,
+        build: (t, a, o, p) => `Save this before it gets buried: the exact ${t} blueprint behind ${o}.`
+      },
+      {
+        id: 9,
+        category: 'Curiosity',
+        score: 90,
+        build: (t, a, o, p) => `I wasn't supposed to share this ${t} shortcut for ${a}, so pay close attention.`
+      },
+      {
+        id: 10,
+        category: 'Curiosity',
+        score: 94,
+        build: (t, a, o, p) => `What if everything you were taught about ${t} is the exact reason you aren't ${o}?`
+      },
+
+      // --- CONTRARIAN & SHOCKING (10) ---
+      {
+        id: 11,
+        category: 'Contrarian',
+        score: 98,
+        build: (t, a, o, p) => `Stop obsessing over ${t}—it’s actually keeping ${a} broke and stuck.`
+      },
+      {
+        id: 12,
+        category: 'Contrarian',
+        score: 96,
+        build: (t, a, o, p) => `Unpopular opinion: ${a} don't need more motivation for ${t}, they need this system.`
+      },
+      {
+        id: 13,
+        category: 'Contrarian',
+        score: 95,
+        build: (t, a, o, p) => `Forget traditional ${t} advice. If I had to start from zero as ${a}, I'd do this instead.`
+      },
+      {
+        id: 14,
+        category: 'Contrarian',
+        score: 93,
+        build: (t, a, o, p) => `Working harder on ${t} is a trap. Here is how smart ${a} achieve ${o} in half the time.`
+      },
+      {
+        id: 15,
+        category: 'Contrarian',
+        score: 94,
+        build: (t, a, o, p) => `You don't have a ${t} problem—you have a positioning problem, and here's how to fix it.`
+      },
+      {
+        id: 16,
+        category: 'Contrarian',
+        score: 92,
+        build: (t, a, o, p) => `Every guru on ${p} tells ${a} to do this for ${t}—and it's terrible advice.`
+      },
+      {
+        id: 17,
+        category: 'Contrarian',
+        score: 95,
+        build: (t, a, o, p) => `Delete your old ${t} checklist right now. This 3-step method beats it every single time.`
+      },
+      {
+        id: 18,
+        category: 'Contrarian',
+        score: 91,
+        build: (t, a, o, p) => `Why chasing ${o} the "normal" way is ruining ${t} for ${a}.`
+      },
+      {
+        id: 19,
+        category: 'Contrarian',
+        score: 94,
+        build: (t, a, o, p) => `I stopped following standard ${t} rules—and my results in ${o} tripled overnight.`
+      },
+      {
+        id: 20,
+        category: 'Contrarian',
+        score: 93,
+        build: (t, a, o, p) => `Hot take for ${a}: 90% of ${t} tools are a waste of money except this one.`
+      },
+
+      // --- MISTAKES & WARNINGS (10) ---
+      {
+        id: 21,
+        category: 'Mistakes',
+        score: 97,
+        build: (t, a, o, p) => `3 fatal ${t} mistakes that are silently blocking ${a} from ${o}.`
+      },
+      {
+        id: 22,
+        category: 'Mistakes',
+        score: 95,
+        build: (t, a, o, p) => `If you are still doing this in ${t}, stop immediately before you waste another month.`
+      },
+      {
+        id: 23,
+        category: 'Mistakes',
+        score: 94,
+        build: (t, a, o, p) => `The #1 rookie mistake ${a} make when trying to master ${t}.`
+      },
+      {
+        id: 24,
+        category: 'Mistakes',
+        score: 93,
+        build: (t, a, o, p) => `Warning for ${a}: avoid this ${t} trap if you actually care about ${o}.`
+      },
+      {
+        id: 25,
+        category: 'Mistakes',
+        score: 92,
+        build: (t, a, o, p) => `I wasted 6 months on ${t} because nobody warned me about this single mistake.`
+      },
+      {
+        id: 26,
+        category: 'Mistakes',
+        score: 96,
+        build: (t, a, o, p) => `Check your ${t} workflow right now—if you see this red flag, fix it today.`
+      },
+      {
+        id: 27,
+        category: 'Mistakes',
+        score: 91,
+        build: (t, a, o, p) => `5 subtle ${t} habits that scream "amateur" to anyone watching ${a}.`
+      },
+      {
+        id: 28,
+        category: 'Mistakes',
+        score: 94,
+        build: (t, a, o, p) => `Why your ${t} efforts aren't converting into ${o} (and the 60-second fix).`
+      },
+      {
+        id: 29,
+        category: 'Mistakes',
+        score: 90,
+        build: (t, a, o, p) => `Don't touch ${t} until you eliminate these 2 massive time-wasters.`
+      },
+      {
+        id: 30,
+        category: 'Mistakes',
+        score: 93,
+        build: (t, a, o, p) => `Most ${a} quit ${t} right before they hit ${o} because of this one error.`
+      },
+
+      // --- STORY & SOCIAL PROOF (10) ---
+      {
+        id: 31,
+        category: 'Story',
+        score: 96,
+        build: (t, a, o, p) => `How I went from struggling with ${t} to consistently ${o} in just 30 days.`
+      },
+      {
+        id: 32,
+        category: 'Story',
+        score: 95,
+        build: (t, a, o, p) => `6 months ago I knew nothing about ${t}. Today, here is how I help ${a} achieve ${o}.`
+      },
+      {
+        id: 33,
+        category: 'Story',
+        score: 94,
+        build: (t, a, o, p) => `A client asked me how ${a} can start ${o} using ${t}—here is the exact answer I gave them.`
+      },
+      {
+        id: 34,
+        category: 'Story',
+        score: 93,
+        build: (t, a, o, p) => `I tested 12 different ${t} strategies for ${a} so you don't have to—only 1 actually worked.`
+      },
+      {
+        id: 35,
+        category: 'Story',
+        score: 97,
+        build: (t, a, o, p) => `Here is the exact behind-the-scenes breakdown of how ${t} unlocked ${o} for me.`
+      },
+      {
+        id: 36,
+        category: 'Story',
+        score: 92,
+        build: (t, a, o, p) => `Day 1 vs. Day 30 of using this ${t} system as ${a}—the difference is unreal.`
+      },
+      {
+        id: 37,
+        category: 'Story',
+        score: 94,
+        build: (t, a, o, p) => `I nearly gave up on ${t} until I discovered this one framework for ${o}.`
+      },
+      {
+        id: 38,
+        category: 'Story',
+        score: 91,
+        build: (t, a, o, p) => `Watch how one simple change in ${t} completely transformed results for ${a}.`
+      },
+      {
+        id: 39,
+        category: 'Story',
+        score: 95,
+        build: (t, a, o, p) => `If I lost everything tomorrow and only kept my ${t} knowledge, here is how I'd rebuild ${o}.`
+      },
+      {
+        id: 40,
+        category: 'Story',
+        score: 92,
+        build: (t, a, o, p) => `The exact moment ${t} finally clicked for me—and how ${a} can copy it today.`
+      },
+
+      // --- STEP-BY-STEP & ACTIONABLE HACKS (10) ---
+      {
+        id: 41,
+        category: 'Actionable',
+        score: 98,
+        build: (t, a, o, p) => `Steal my 3-step ${t} formula that helps ${a} start ${o} this week.`
+      },
+      {
+        id: 42,
+        category: 'Actionable',
+        score: 96,
+        build: (t, a, o, p) => `How to master ${t} in 10 minutes a day—even if you're busy ${a}.`
+      },
+      {
+        id: 43,
+        category: 'Actionable',
+        score: 95,
+        build: (t, a, o, p) => `Copy-paste this exact ${t} checklist the next time you want ${o}.`
+      },
+      {
+        id: 44,
+        category: 'Actionable',
+        score: 94,
+        build: (t, a, o, p) => `The ultimate ${t} starter kit for ${a} (no fluff, just pure action).`
+      },
+      {
+        id: 45,
+        category: 'Actionable',
+        score: 93,
+        build: (t, a, o, p) => `4 free ${t} hacks that feel illegal to know as ${a}.`
+      },
+      {
+        id: 46,
+        category: 'Actionable',
+        score: 95,
+        build: (t, a, o, p) => `Want ${o}? Do these 3 things with ${t} before you go to sleep tonight.`
+      },
+      {
+        id: 47,
+        category: 'Actionable',
+        score: 92,
+        build: (t, a, o, p) => `How to turn ${t} into a repeatable system for ${o} in under 48 hours.`
+      },
+      {
+        id: 48,
+        category: 'Actionable',
+        score: 94,
+        build: (t, a, o, p) => `The simplest way for ${a} to win at ${t} without burning out.`
+      },
+      {
+        id: 49,
+        category: 'Actionable',
+        score: 96,
+        build: (t, a, o, p) => `Here is the exact step-by-step ${t} roadmap I wish I had when starting out.`
+      },
+      {
+        id: 50,
+        category: 'Actionable',
+        score: 97,
+        build: (t, a, o, p) => `Bookmark this ${t} cheat sheet—it will save ${a} hours of trial and error.`
+      }
+    ];
+
+    // =========================================================================
+    // 2. APPLICATION STATE & PRESETS
+    // =========================================================================
+    let generatedHooks = [];
+    let currentCategory = 'All';
+    let savedHooks = JSON.parse(localStorage.getItem('hookforge_saved_v1') || '[]');
+    let isProUnlocked = localStorage.getItem('hookforge_pro_unlocked_v1') === 'true';
+    let selectedPlan = 'monthly';
+
+    const VALID_UNLOCK_KEYS = ['HOOKPRO15', 'HOOKPRO99', 'HOOKPRO2026', 'AHMADPRO'];
+
+    const PRESETS = {
+// ... existing code ... -->
+    // =========================================================================
+    // 3. INITIALIZATION & THEME MANAGEMENT
+    // =========================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      updateProUIState();
+      updateFavoritesBadges();
+      generateHooks();
+    });
+
+    function updateProUIState() {
+      const proBadge = document.getElementById('proActiveBadge');
+      const headerBtn = document.getElementById('headerUpgradeBtn');
+      const tierPill = document.getElementById('tierStatusPill');
+      const exportLock = document.getElementById('exportProLockIcon');
+      const modalTag = document.getElementById('modalProStatusTag');
+
+      if (isProUnlocked) {
+        if (proBadge) proBadge.classList.remove('hidden');
+        if (modalTag) modalTag.classList.remove('hidden');
+        if (headerBtn) {
+          headerBtn.textContent = 'Pro Unlocked ✓';
+          headerBtn.className =
+            'px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold glass-card border-amber-400/50 text-amber-400 transition-all cursor-pointer';
+        }
+        if (tierPill) {
+          tierPill.textContent = 'PRO: All 50 Unlocked';
+          tierPill.className =
+            'px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-mono text-[11px] font-semibold';
+        }
+        if (exportLock) exportLock.classList.add('hidden');
+      } else {
+        if (proBadge) proBadge.classList.add('hidden');
+        if (modalTag) modalTag.classList.add('hidden');
+        if (tierPill) {
+          tierPill.textContent = 'Free Tier: 10 Unlocked';
+          tierPill.className =
+            'px-2.5 py-1 rounded-lg bg-amber-500/15 text-amber-400 border border-amber-500/30 font-mono text-[11px] font-semibold';
+        }
+        if (exportLock) exportLock.classList.remove('hidden');
+      }
+    }
+
+    function toggleTheme() {
+      const htmlEl = document.documentElement;
+      const isDark = htmlEl.classList.contains('dark');
+      if (isDark) {
+        htmlEl.classList.remove('dark');
+        htmlEl.classList.add('light');
+        localStorage.setItem('hookforge_theme', 'light');
+        document.getElementById('sunIcon').classList.remove('hidden');
+        document.getElementById('moonIcon').classList.add('hidden');
+        document.getElementById('themeLabel').textContent = 'Light';
+        showToast('Switched to 4K Frosted Light Mode');
+      } else {
+        htmlEl.classList.remove('light');
+        htmlEl.classList.add('dark');
+        localStorage.setItem('hookforge_theme', 'dark');
+        document.getElementById('sunIcon').classList.add('hidden');
+        document.getElementById('moonIcon').classList.remove('hidden');
+        document.getElementById('themeLabel').textContent = 'Dark';
+        showToast('Switched to 4K Obsidian Dark Mode');
+      }
+    }
+
+    // =========================================================================
+    // 4. CORE HOOK GENERATION & SCRIPT BUILDER
+    // =========================================================================
+    function applyPreset(key) {
+      const p = PRESETS[key];
+      if (!p) return;
+      document.getElementById('topicInput').value = p.topic;
+      document.getElementById('audienceInput').value = p.audience;
+      document.getElementById('outcomeInput').value = p.outcome;
+      document.getElementById('platformSelect').value = p.platform;
+      generateHooks();
+      showToast(`Loaded "${p.topic}" preset — 50 fresh hooks generated!`);
+    }
+
+    function resetInputs() {
+      document.getElementById('topicInput').value = '';
+      document.getElementById('audienceInput').value = '';
+      document.getElementById('outcomeInput').value = '';
+      document.getElementById('topicInput').focus();
+    }
+
+    function handleGenerate(e) {
+      e.preventDefault();
+      generateHooks();
+      showToast('Generated 50 custom hooks for your exact inputs!');
+    }
+
+    function cleanInput(str, fallback) {
+      const trimmed = (str || '').trim();
+      return trimmed.length > 0 ? trimmed : fallback;
+    }
+
+    function buildMiniScript(hookText, topic, audience, outcome, platform) {
+      return {
+        hook: hookText,
+        body: `Here is why this matters for ${audience}: Most people overcomplicate ${topic} and burn out before seeing results. Instead, focus on one repeatable lever—isolate your biggest bottleneck in ${topic}, apply a structured framework, and track your daily conversion toward ${outcome}.`,
+        cta: platform === 'X / LinkedIn'
+          ? `Bookmark this post for your next ${topic} session, and comment "SYSTEM" if you want my full template.`
+          : `Save this video so you don't lose it, and follow for daily ${topic} breakdowns!`
+      };
+    }
+
+    function generateHooks() {
+      const topic = cleanInput(document.getElementById('topicInput').value, 'digital marketing');
+      const audience = cleanInput(document.getElementById('audienceInput').value, 'beginners');
+      const outcome = cleanInput(document.getElementById('outcomeInput').value, 'getting consistent results');
+      const platform = document.getElementById('platformSelect').value;
+
+      document.getElementById('activeContextSummary').textContent = `For ${audience} • ${platform}`;
+
+      generatedHooks = HOOK_TEMPLATES.map((tpl) => {
+        const text = tpl.build(topic, audience, outcome, platform);
+        return {
+          uid: `${tpl.id}-${topic.toLowerCase().slice(0, 12)}`,
+          number: tpl.id,
+          category: tpl.category,
+          score: tpl.score,
+          platform,
+          text,
+          script: buildMiniScript(text, topic, audience, outcome, platform)
+        };
+      });
+
+      renderHooks();
+    }
+
+    function setCategoryFilter(cat) {
+      currentCategory = cat;
+      document.getElementById('categorySelect').value = cat;
+
+      document.querySelectorAll('.cat-chip').forEach((btn) => {
+        if (btn.dataset.cat === cat) {
+          btn.className = 'cat-chip px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-500 text-slate-950 whitespace-nowrap cursor-pointer';
+        } else {
+          btn.className = 'cat-chip px-3 py-1.5 rounded-xl text-xs font-semibold glass-card text-slate-400 hover:text-emerald-400 whitespace-nowrap cursor-pointer';
+        }
+      });
+
+      renderHooks();
+    }
+
+    function filterHooks() {
+      const selectCat = document.getElementById('categorySelect').value;
+      if (selectCat !== currentCategory) {
+        setCategoryFilter(selectCat);
+        return;
+      }
+      renderHooks();
+    }
+
+    function shuffleHooks() {
+      for (let i = generatedHooks.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [generatedHooks[i], generatedHooks[j]] = [generatedHooks[j], generatedHooks[i]];
+      }
+      renderHooks();
+      showToast('Shuffled hook order');
+    }
+
+    function getCategoryBadgeStyle(category) {
+      switch (category) {
+        case 'Curiosity':
+          return 'bg-purple-500/15 text-purple-400 border-purple-500/30';
+        case 'Contrarian':
+          return 'bg-amber-500/15 text-amber-400 border-amber-500/30';
+        case 'Mistakes':
+          return 'bg-rose-500/15 text-rose-400 border-rose-500/30';
+        case 'Story':
+          return 'bg-sky-500/15 text-sky-400 border-sky-500/30';
+        case 'Actionable':
+        default:
+          return 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30';
+      }
+    }
+
+    function renderHooks() {
+      const container = document.getElementById('hooksListContainer');
+      const query = (document.getElementById('searchHooksInput').value || '').toLowerCase().trim();
+
+      const filtered = generatedHooks.filter((item) => {
+        const matchesCat = currentCategory === 'All' || item.category === currentCategory;
+        const matchesQuery = !query || item.text.toLowerCase().includes(query) || item.category.toLowerCase().includes(query);
+        return matchesCat && matchesQuery;
+      });
+
+      document.getElementById('resultsCountBadge').textContent = `${filtered.length} Hook${filtered.length === 1 ? '' : 's'} Ready`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="glass-panel rounded-3xl p-10 text-center">
+            <p class="text-base font-bold mb-1">No hooks match that filter</p>
+            <p class="text-xs text-slate-400 mb-4">Try clearing your search term or switching back to "All (50)".</p>
+            <button onclick="document.getElementById('searchHooksInput').value=''; setCategoryFilter('All');" class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 cursor-pointer">
+              Show All 50 Hooks
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered
+        .map((hook, idx) => {
+          const isLocked = !isProUnlocked && hook.number > 10;
+          const isSaved = savedHooks.some((s) => s.text === hook.text);
+          const badgeStyle = getCategoryBadgeStyle(hook.category);
+          const scriptBoxId = `script-box-${idx}`;
+
+          if (isLocked) {
+            return `
+              <article class="glass-card rounded-2xl p-4 sm:p-5 relative overflow-hidden animate-entry">
+                <div class="flex items-center justify-between gap-2 mb-2.5">
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono text-[11px] font-bold px-2 py-0.5 rounded-md bg-white/10 text-slate-300">
+                      #${String(hook.number).padStart(2, '0')}
+                    </span>
+                    <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${badgeStyle}">
+                      ${hook.category}
+                    </span>
+                  </div>
+                  <span class="text-[11px] font-mono text-amber-400 font-semibold">🔒 PRO LOCKED</span>
+                </div>
+
+                <!-- Blurred Preview Text -->
+                <div class="relative select-none">
+                  <p class="text-sm sm:text-base font-semibold leading-relaxed blur-[6px] opacity-55 pointer-events-none">
+                    “${escapeHtml(hook.text)}”
+                  </p>
+
+                  <!-- Frosted Glass Lock Overlay -->
+                  <div class="mt-3 pt-3 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                    <span class="text-xs text-slate-400">
+                      Hooks #11–#50 & 60s viral scripts are reserved for Pro members.
+                    </span>
+                    <button onclick="openModal('pricingModal')" class="px-3.5 py-2 rounded-xl text-xs font-extrabold bg-gradient-to-r from-amber-400 via-orange-400 to-emerald-400 text-slate-950 shadow-lg hover:brightness-110 transition-all cursor-pointer shrink-0">
+                      🔓 Unlock All 50 Hooks & Scripts (Pro)
+                    </button>
+                  </div>
+                </div>
+              </article>
+            `;
+          }
+
+          return `
+            <article class="glass-card rounded-2xl p-4 sm:p-5 animate-entry">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+                <div class="flex items-center gap-2">
+                  <span class="font-mono text-[11px] font-bold px-2 py-0.5 rounded-md bg-white/10 text-slate-300">
+                    #${String(hook.number).padStart(2, '0')}
+                  </span>
+                  <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${badgeStyle}">
+                    ${hook.category}
+                  </span>
+                  <span class="text-[11px] text-slate-400 hidden sm:inline">
+                    • ${hook.platform}
+                  </span>
+                </div>
+                <div class="flex items-center gap-1.5 text-[11px] font-mono text-emerald-400">
+                  <span>Retention Score:</span>
+                  <strong>${hook.score}%</strong>
+                </div>
+              </div>
+
+              <p class="text-sm sm:text-base font-semibold leading-relaxed mb-4 select-all">
+                “${escapeHtml(hook.text)}”
+              </p>
+
+              <!-- Action Buttons -->
+              <div class="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-white/10">
+                <div class="flex items-center gap-2">
+                  <button onclick="copyHookText(${idx})" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500 hover:text-slate-950 transition-all flex items-center gap-1.5 cursor-pointer">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                      <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                    </svg>
+                    <span>Copy Hook</span>
+                  </button>
+
+                  <button onclick="handleScriptDrawerClick('${scriptBoxId}')" class="px-3 py-1.5 rounded-xl text-xs font-semibold glass-card hover:border-indigo-400/50 transition-all flex items-center gap-1.5 cursor-pointer">
+                    <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span>60s Mini-Script</span>
+                    ${!isProUnlocked ? '<span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-400">PRO</span>' : ''}
+                  </button>
+                </div>
+
+                <button onclick="toggleSaveHook(${idx})" class="px-3 py-1.5 rounded-xl text-xs font-semibold glass-card hover:border-amber-400/50 transition-all flex items-center gap-1.5 cursor-pointer ${isSaved ? 'text-amber-400 border-amber-400/40' : 'text-slate-400'}">
+                  <svg class="w-3.5 h-3.5" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                  </svg>
+                  <span>${isSaved ? 'Saved' : 'Save'}</span>
+                </button>
+              </div>
+
+              <!-- Expandable 60s Script Drawer -->
+              <div id="${scriptBoxId}" class="hidden mt-3.5 pt-3.5 border-t border-white/10 space-y-2.5 text-xs">
+                <div class="p-3 rounded-xl bg-slate-950/35 border border-white/5 space-y-2">
+                  <div>
+                    <span class="font-mono font-bold text-emerald-400 uppercase">[0:00–0:03 HOOK]</span>
+                    <p class="mt-0.5 text-slate-200">${escapeHtml(hook.script.hook)}</p>
+                  </div>
+                  <div>
+                    <span class="font-mono font-bold text-indigo-400 uppercase">[0:04–0:48 VALUE BODY]</span>
+                    <p class="mt-0.5 text-slate-300 leading-relaxed">${escapeHtml(hook.script.body)}</p>
+                  </div>
+                  <div>
+                    <span class="font-mono font-bold text-amber-400 uppercase">[0:49–0:60 CALL TO ACTION]</span>
+                    <p class="mt-0.5 text-slate-200">${escapeHtml(hook.script.cta)}</p>
+                  </div>
+                </div>
+                <div class="flex justify-end">
+                  <button onclick="copyFullScript(${idx})" class="px-3 py-1.5 rounded-lg text-[11px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-500 hover:text-white transition-all cursor-pointer">
+                    Copy Full 60s Script
+                  </button>
+                </div>
+              </div>
+            </article>
+          `;
+        })
+        .join('');
+
+      // Store currently rendered subset for index lookup
+      window._currentRenderedHooks = filtered;
+    }
+
+    function handleScriptDrawerClick(id) {
+      if (!isProUnlocked) {
+        showToast('60s Mini-Scripts are a Pro feature — unlock with your license key!');
+        openModal('pricingModal');
+        return;
+      }
+      toggleScriptBox(id);
+    }
+
+    function toggleScriptBox(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('hidden');
+    }
+
+    // =========================================================================
+    // 5. CLIPBOARD & EXPORT UTILITIES (IFRAME-SAFE)
+    // =========================================================================
+    function copyStringToClipboard(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showToast('Copied to clipboard!');
+      } catch (err) {
+        showToast('Could not copy automatically — please select and copy.');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function copyHookText(idx) {
+      const item = window._currentRenderedHooks[idx];
+      if (!item) return;
+      copyStringToClipboard(item.text);
+    }
+
+    function copyFullScript(idx) {
+      const item = window._currentRenderedHooks[idx];
+      if (!item) return;
+      const formatted = `HOOK (0-3s):\n${item.script.hook}\n\nVALUE BODY (4-48s):\n${item.script.body}\n\nCALL TO ACTION (49-60s):\n${item.script.cta}`;
+      copyStringToClipboard(formatted);
+    }
+
+    function exportAllHooks() {
+      if (!isProUnlocked) {
+        showToast('Bulk .TXT Export requires HookForge Pro!');
+        openModal('pricingModal');
+        return;
+      }
+      if (!generatedHooks.length) return;
+      const topic = cleanInput(document.getElementById('topicInput').value, 'hooks');
+      const lines = [
+        `HOOKFORGE STUDIO PRO — 50 VIRAL HOOKS & SCRIPTS`,
+        `Topic: ${topic}`,
+        `Generated: ${new Date().toLocaleDateString()}`,
+        `==================================================\n`,
+        ...generatedHooks.map(
+          (h) =>
+            `#${String(h.number).padStart(2, '0')} [${h.category} | ${h.score}% Retention]\nHOOK: ${h.text}\nSCRIPT BODY: ${h.script.body}\nCTA: ${h.script.cta}\n`
+        )
+      ];
+      const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `HookForge-Pro-50-Hooks-${topic.replace(/[^a-z0-9]/gi, '-').toLowerCase()}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Downloaded all 50 Pro hooks & scripts (.TXT)!');
+    }
+
+    // =========================================================================
+    // 6. SAVED VAULT (FAVORITES) MANAGEMENT
+    // =========================================================================
+    function toggleSaveHook(idx) {
+      const item = window._currentRenderedHooks[idx];
+      if (!item) return;
+
+      const existingIndex = savedHooks.findIndex((s) => s.text === item.text);
+      if (existingIndex > -1) {
+        savedHooks.splice(existingIndex, 1);
+        showToast('Removed from Saved Vault');
+      } else {
+        savedHooks.unshift({
+          text: item.text,
+          category: item.category,
+          platform: item.platform,
+          score: item.score,
+          savedAt: new Date().toLocaleDateString()
+        });
+        showToast('Saved to your Viral Vault!');
+      }
+
+      localStorage.setItem('hookforge_saved_v1', JSON.stringify(savedHooks));
+      updateFavoritesBadges();
+      renderHooks();
+      renderFavorites();
+    }
+
+    function updateFavoritesBadges() {
+      const count = savedHooks.length;
+      document.getElementById('fav-count-badge').textContent = count;
+      document.getElementById('mobile-fav-badge').textContent = count;
+    }
+
+    function renderFavorites() {
+      const container = document.getElementById('favoritesListContainer');
+      if (savedHooks.length === 0) {
+        container.innerHTML = `
+          <div class="glass-panel rounded-3xl p-10 text-center">
+            <p class="text-base font-bold mb-1">Your Saved Vault is empty</p>
+            <p class="text-xs text-slate-400 mb-4">Click the "Save" star on any generated hook to keep it here.</p>
+            <button onclick="switchView('generator')" class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 cursor-pointer">
+              Explore 50 Hooks
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = savedHooks
+        .map(
+          (item, i) => `
+          <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="space-y-1.5">
+              <div class="flex items-center gap-2">
+                <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${getCategoryBadgeStyle(item.category)}">
+                  ${item.category}
+                </span>
+                <span class="text-[11px] text-slate-400">${item.platform} • Saved ${item.savedAt}</span>
+              </div>
+              <p class="text-sm sm:text-base font-semibold">“${escapeHtml(item.text)}”</p>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <button onclick="copyStringToClipboard(${JSON.stringify(item.text)})" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500 hover:text-slate-950 cursor-pointer">
+                Copy
+              </button>
+              <button onclick="removeFavorite(${i})" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-rose-500/15 text-rose-400 border border-rose-500/30 hover:bg-rose-500 hover:text-white cursor-pointer">
+                Remove
+              </button>
+            </div>
+          </div>
+        `
+        )
+        .join('');
+    }
+
+    function removeFavorite(index) {
+      savedHooks.splice(index, 1);
+      localStorage.setItem('hookforge_saved_v1', JSON.stringify(savedHooks));
+      updateFavoritesBadges();
+      renderFavorites();
+      renderHooks();
+      showToast('Hook removed');
+    }
+
+    function clearAllFavorites() {
+      savedHooks = [];
+      localStorage.setItem('hookforge_saved_v1', '[]');
+      updateFavoritesBadges();
+      renderFavorites();
+      renderHooks();
+      showToast('Saved Vault cleared');
+    }
+
+    // =========================================================================
+    // 7. VIEW SWITCHING, MODALS & TOASTS
+    // =========================================================================
+    function switchView(viewName) {
+      const genView = document.getElementById('generatorView');
+      const favView = document.getElementById('favoritesView');
+      const navGen = document.getElementById('nav-generator');
+      const navFav = document.getElementById('nav-favorites');
+
+      if (viewName === 'favorites') {
+        genView.classList.add('hidden');
+        favView.classList.remove('hidden');
+        navFav.classList.add('bg-emerald-500', 'text-slate-950');
+        navFav.classList.remove('text-slate-400');
+        navGen.classList.remove('bg-emerald-500', 'text-slate-950');
+        navGen.classList.add('text-slate-400');
+        renderFavorites();
+      } else {
+        favView.classList.add('hidden');
+        genView.classList.remove('hidden');
+        navGen.classList.add('bg-emerald-500', 'text-slate-950');
+        navGen.classList.remove('text-slate-400');
+        navFav.classList.remove('bg-emerald-500', 'text-slate-950');
+        navFav.classList.add('text-slate-400');
+      }
+    }
+
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function closeModalOnBackdrop(e, id) {
+      if (e.target.id === id) {
+        closeModal(id);
+      }
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('contactName').value.trim();
+      closeModal('contactModal');
+      document.getElementById('contactForm').reset();
+      showToast(`Thanks ${name}! Your message has been received.`);
+    }
+
+    // =========================================================================
+    // 8. PRO PRICING, PAYMENT TABS & LICENSE KEY ACTIVATION
+    // =========================================================================
+    function selectBillingPlan(plan) {
+      selectedPlan = plan;
+      const monthlyBtn = document.getElementById('planMonthlyBtn');
+      const yearlyBtn = document.getElementById('planYearlyBtn');
+      const monthlyCheck = document.getElementById('monthlyCheckIcon');
+      const yearlyCheck = document.getElementById('yearlyCheckIcon');
+      const localLabel = document.getElementById('localPlanLabel');
+      const intlBadge = document.getElementById('intlPriceBadge');
+      const gumroadCta = document.getElementById('gumroadCtaText');
+      const waLink = document.getElementById('whatsappVerifyLink');
+
+      if (plan === 'monthly') {
+        monthlyBtn.className =
+          'glass-card rounded-2xl p-4 text-left border-2 border-emerald-400 bg-emerald-500/10 transition-all cursor-pointer relative';
+        yearlyBtn.className =
+          'glass-card rounded-2xl p-4 text-left border-2 border-transparent hover:border-indigo-400/50 transition-all cursor-pointer relative';
+        monthlyCheck.className =
+          'w-5 h-5 rounded-full bg-emerald-400 text-slate-950 flex items-center justify-center text-xs font-extrabold';
+        yearlyCheck.className =
+          'w-5 h-5 rounded-full border border-white/20 text-transparent flex items-center justify-center text-xs font-extrabold';
+
+        localLabel.textContent = 'Monthly Pro — 4,200 PKR ($15)';
+        intlBadge.textContent = 'Monthly: $15.00 USD';
+        gumroadCta.textContent = 'Continue to Gumroad Checkout ($15/mo) →';
+        waLink.href =
+          'https://wa.me/923089423733?text=' +
+          encodeURIComponent(
+            'Assalam-o-Alaikum! I have paid for HookForge Pro (Monthly $15 / 4,200 PKR). Here is my payment screenshot for the Unlock Key:'
+          );
+      } else {
+        yearlyBtn.className =
+          'glass-card rounded-2xl p-4 text-left border-2 border-indigo-400 bg-indigo-500/10 transition-all cursor-pointer relative';
+        monthlyBtn.className =
+          'glass-card rounded-2xl p-4 text-left border-2 border-transparent hover:border-emerald-400/50 transition-all cursor-pointer relative';
+        yearlyCheck.className =
+          'w-5 h-5 rounded-full bg-indigo-400 text-slate-950 flex items-center justify-center text-xs font-extrabold';
+        monthlyCheck.className =
+          'w-5 h-5 rounded-full border border-white/20 text-transparent flex items-center justify-center text-xs font-extrabold';
+
+        localLabel.textContent = 'Yearly Pro — 27,900 PKR ($99.9)';
+        intlBadge.textContent = 'Yearly: $99.90 USD';
+        gumroadCta.textContent = 'Continue to Gumroad Checkout ($99.9/yr) →';
+        waLink.href =
+          'https://wa.me/923089423733?text=' +
+          encodeURIComponent(
+            'Assalam-o-Alaikum! I have paid for HookForge Pro (Yearly $99.9 / 27,900 PKR). Here is my payment screenshot for the Unlock Key:'
+          );
+      }
+    }
+
+    function switchPaymentTab(tab) {
+      const localBtn = document.getElementById('tabLocalBtn');
+      const intlBtn = document.getElementById('tabIntlBtn');
+      const localPanel = document.getElementById('paymentLocalPanel');
+      const intlPanel = document.getElementById('paymentIntlPanel');
+
+      if (tab === 'local') {
+        localBtn.className =
+          'py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold bg-emerald-500 text-slate-950 transition-all cursor-pointer';
+        intlBtn.className =
+          'py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold text-slate-400 hover:text-white transition-all cursor-pointer';
+        localPanel.classList.remove('hidden');
+        intlPanel.classList.add('hidden');
+      } else {
+        intlBtn.className =
+          'py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold bg-indigo-500 text-white transition-all cursor-pointer';
+        localBtn.className =
+          'py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold text-slate-400 hover:text-white transition-all cursor-pointer';
+        intlPanel.classList.remove('hidden');
+        localPanel.classList.add('hidden');
+      }
+    }
+
+    function handleActivateKey(e) {
+      e.preventDefault();
+      const inputEl = document.getElementById('unlockKeyInput');
+      const feedbackEl = document.getElementById('activationFeedback');
+      const enteredKey = (inputEl.value || '').trim().toUpperCase();
+
+      if (VALID_UNLOCK_KEYS.includes(enteredKey)) {
+        isProUnlocked = true;
+        localStorage.setItem('hookforge_pro_unlocked_v1', 'true');
+        updateProUIState();
+        renderHooks();
+        feedbackEl.textContent = '✓ Pro License Activated! All 50 hooks, scripts & exports are now unlocked.';
+        feedbackEl.className = 'text-[11px] text-emerald-400 font-semibold mt-1.5';
+        inputEl.value = '';
+        closeModal('pricingModal');
+        showToast('🎉 HookForge Pro Unlocked! All 50 Hooks & 60s Scripts are active.');
+      } else {
+        feedbackEl.textContent = '✕ Invalid Unlock Key. Please check your key or send payment screenshot on WhatsApp.';
+        feedbackEl.className = 'text-[11px] text-rose-400 font-semibold mt-1.5';
+        showToast('Invalid Unlock Key entered');
+      }
+    }
+
+    function showToast(message) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className =
+        'glass-panel px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 border-emerald-400/40 shadow-2xl animate-entry';
+      toast.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400"></span><span>${escapeHtml(message)}</span>`;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(8px)';
+        toast.style.transition = 'all 0.25s ease';
+        setTimeout(() => toast.remove(), 260);
+      }, 2600);
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+  </script>
+</body>
+</html>
