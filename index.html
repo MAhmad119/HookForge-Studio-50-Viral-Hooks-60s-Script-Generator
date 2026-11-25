@@ -14,16 +14,16 @@
                      radial-gradient(circle at 88% 18%, rgba(139, 92, 246, 0.16), transparent 38%),
                      radial-gradient(circle at 50% 95%, rgba(14, 165, 233, 0.12), transparent 45%),
                      #050814;
-      --glass-bg: rgba(15, 23, 42, 0.62);
-      --glass-card: rgba(19, 29, 53, 0.58);
-      --glass-card-hover: rgba(27, 41, 74, 0.78);
+      --glass-bg: rgba(15, 23, 42, 0.65);
+      --glass-card: rgba(19, 29, 53, 0.62);
+      --glass-card-hover: rgba(27, 41, 74, 0.82);
       --glass-border: rgba(255, 255, 255, 0.12);
-      --glass-border-strong: rgba(255, 255, 255, 0.22);
+      --glass-border-strong: rgba(255, 255, 255, 0.24);
       --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12);
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --text-soft: #cbd5e1;
-      --input-bg: rgba(7, 12, 26, 0.75);
+      --input-bg: rgba(7, 12, 26, 0.78);
       --accent-1: #38bdf8;
       --accent-2: #6366f1;
       --accent-3: #a855f7;
@@ -43,16 +43,16 @@
                      radial-gradient(circle at 88% 18%, rgba(139, 92, 246, 0.18), transparent 40%),
                      radial-gradient(circle at 50% 95%, rgba(99, 102, 241, 0.14), transparent 45%),
                      #eef4ff;
-      --glass-bg: rgba(255, 255, 255, 0.72);
-      --glass-card: rgba(255, 255, 255, 0.68);
-      --glass-card-hover: rgba(255, 255, 255, 0.92);
-      --glass-border: rgba(15, 23, 42, 0.10);
+      --glass-bg: rgba(255, 255, 255, 0.74);
+      --glass-card: rgba(255, 255, 255, 0.72);
+      --glass-card-hover: rgba(255, 255, 255, 0.94);
+      --glass-border: rgba(15, 23, 42, 0.11);
       --glass-border-strong: rgba(59, 130, 246, 0.28);
       --glass-shadow: 0 18px 42px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.85);
       --text-main: #0f172a;
       --text-muted: #475569;
       --text-soft: #334155;
-      --input-bg: rgba(255, 255, 255, 0.85);
+      --input-bg: rgba(255, 255, 255, 0.88);
       --accent-1: #0284c7;
       --accent-2: #4f46e5;
       --accent-3: #9333ea;
@@ -66,15 +66,8 @@
       --modal-backdrop: rgba(15, 23, 42, 0.55);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -92,7 +85,6 @@
       letter-spacing: -0.02em;
     }
 
-    /* Ambient 4K Glass Glow Orbs */
     .ambient-layer {
       position: fixed;
       inset: 0;
@@ -108,22 +100,8 @@
       animation: floatOrb 14s ease-in-out infinite alternate;
     }
 
-    .orb-left {
-      width: 360px;
-      height: 360px;
-      top: 120px;
-      left: -110px;
-      background: var(--orb-1);
-    }
-
-    .orb-right {
-      width: 400px;
-      height: 400px;
-      top: 90px;
-      right: -130px;
-      background: var(--orb-2);
-      animation-delay: -5s;
-    }
+    .orb-left { width: 360px; height: 360px; top: 120px; left: -110px; background: var(--orb-1); }
+    .orb-right { width: 400px; height: 400px; top: 90px; right: -130px; background: var(--orb-2); animation-delay: -5s; }
 
     @keyframes floatOrb {
       0% { transform: translate(0, 0) scale(1); }
@@ -147,7 +125,6 @@
       border-radius: 22px;
     }
 
-    /* Top Header */
     .topbar {
       display: flex;
       align-items: center;
@@ -162,8 +139,6 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      text-decoration: none;
-      color: inherit;
       cursor: pointer;
     }
 
@@ -181,27 +156,10 @@
       flex-shrink: 0;
     }
 
-    .brand-name {
-      font-size: 19px;
-      font-weight: 800;
-      display: block;
-      line-height: 1.15;
-    }
+    .brand-name { font-size: 19px; font-weight: 800; display: block; line-height: 1.15; }
+    .brand-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
 
-    .brand-tag {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    .nav-center {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    .nav-center { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
     .nav-btn {
       background: var(--pill-bg);
@@ -225,13 +183,8 @@
       box-shadow: 0 6px 20px rgba(99, 102, 241, 0.32);
     }
 
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
 
-    /* Theme Toggle Switch */
     .theme-switch {
       position: relative;
       width: 62px;
@@ -245,7 +198,6 @@
       justify-content: space-between;
       padding: 0 8px;
       font-size: 13px;
-      transition: all 0.25s ease;
     }
 
     .theme-knob {
@@ -260,9 +212,7 @@
       transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    [data-theme="light"] .theme-knob {
-      transform: translateX(30px);
-    }
+    [data-theme="light"] .theme-knob { transform: translateX(30px); }
 
     .pro-btn {
       background: var(--gold-grad);
@@ -277,12 +227,6 @@
       align-items: center;
       gap: 7px;
       box-shadow: 0 8px 22px rgba(245, 158, 11, 0.32);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .pro-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 26px rgba(245, 158, 11, 0.45);
     }
 
     .pro-btn.is-pro {
@@ -290,10 +234,7 @@
       box-shadow: 0 8px 22px rgba(16, 185, 129, 0.35);
     }
 
-    /* Dropdown */
-    .dropdown {
-      position: relative;
-    }
+    .dropdown { position: relative; }
 
     .dropdown-menu {
       display: none;
@@ -311,9 +252,7 @@
       z-index: 40;
     }
 
-    .dropdown.open .dropdown-menu {
-      display: block;
-    }
+    .dropdown.open .dropdown-menu { display: block; }
 
     .dropdown-item {
       width: 100%;
@@ -326,45 +265,15 @@
       font-weight: 500;
       text-align: left;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: background 0.15s ease;
     }
 
-    .dropdown-item:hover {
-      background: var(--pill-bg);
-    }
+    .dropdown-item:hover { background: var(--pill-bg); }
 
-    /* Compact Hero */
-    .hero {
-      text-align: center;
-      margin-bottom: 18px;
-      padding: 4px 10px;
-    }
+    .hero { text-align: center; margin-bottom: 18px; padding: 4px 10px; }
+    .hero h1 { font-size: clamp(28px, 4.2vw, 44px); font-weight: 800; line-height: 1.12; margin-bottom: 8px; }
+    .hero-gradient { background: var(--accent-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero p { color: var(--text-muted); font-size: clamp(14px, 1.6vw, 16px); max-width: 680px; margin: 0 auto; }
 
-    .hero h1 {
-      font-size: clamp(28px, 4.2vw, 44px);
-      font-weight: 800;
-      line-height: 1.12;
-      margin-bottom: 8px;
-    }
-
-    .hero-gradient {
-      background: var(--accent-grad);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero p {
-      color: var(--text-muted);
-      font-size: clamp(14px, 1.6vw, 16px);
-      max-width: 680px;
-      margin: 0 auto;
-    }
-
-    /* Main Workspace Grid — Zero Blank Gaps */
     .workspace-grid {
       display: grid;
       grid-template-columns: 370px minmax(0, 1fr);
@@ -372,63 +281,25 @@
       align-items: start;
     }
 
-    .generator-card {
-      padding: 20px;
-      position: sticky;
-      top: 16px;
-    }
+    .generator-card { padding: 20px; position: sticky; top: 16px; }
 
-    .card-head {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      margin-bottom: 14px;
-    }
+    .card-head { display: flex; align-items: center; gap: 11px; margin-bottom: 14px; }
 
     .head-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 11px;
-      background: rgba(56, 189, 248, 0.14);
-      border: 1px solid rgba(56, 189, 248, 0.28);
-      display: grid;
-      place-items: center;
-      font-size: 17px;
-      flex-shrink: 0;
+      width: 36px; height: 36px; border-radius: 11px;
+      background: rgba(56, 189, 248, 0.14); border: 1px solid rgba(56, 189, 248, 0.28);
+      display: grid; place-items: center; font-size: 17px; flex-shrink: 0;
     }
 
-    .card-head h2 {
-      font-size: 18px;
-      font-weight: 700;
-    }
+    .card-head h2 { font-size: 18px; font-weight: 700; }
+    .card-head p { font-size: 12.5px; color: var(--text-muted); }
 
-    .card-head p {
-      font-size: 12.5px;
-      color: var(--text-muted);
-    }
+    .form-group { margin-bottom: 12px; }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-    .form-group {
-      margin-bottom: 12px;
-    }
+    label { display: block; font-size: 12px; font-weight: 600; color: var(--text-soft); margin-bottom: 5px; }
 
-    .form-row-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    label {
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-soft);
-      margin-bottom: 5px;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    select,
-    textarea {
+    input[type="text"], input[type="email"], select, textarea {
       width: 100%;
       background: var(--input-bg);
       border: 1px solid var(--glass-border);
@@ -438,7 +309,6 @@
       font-size: 13.5px;
       font-family: inherit;
       outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     input:focus, select:focus, textarea:focus {
@@ -462,12 +332,6 @@
       justify-content: center;
       gap: 8px;
       box-shadow: 0 10px 28px rgba(99, 102, 241, 0.36);
-      transition: transform 0.18s ease, box-shadow 0.2s ease;
-    }
-
-    .generate-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 32px rgba(99, 102, 241, 0.48);
     }
 
     .tier-note {
@@ -481,16 +345,9 @@
       flex-wrap: wrap;
     }
 
-    .tier-note span.ok {
-      color: var(--success);
-      font-weight: 600;
-    }
+    .tier-note span.ok { color: var(--success); font-weight: 600; }
 
-    /* Results Collection Panel */
-    .collection-card {
-      padding: 20px;
-      min-height: 520px;
-    }
+    .collection-card { padding: 20px; min-height: 480px; }
 
     .collection-top {
       display: flex;
@@ -503,26 +360,9 @@
       border-bottom: 1px solid var(--glass-border);
     }
 
-    .collection-title h2 {
-      font-size: 19px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .collection-sub {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 3px;
-    }
-
-    .collection-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    .collection-title h2 { font-size: 19px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .collection-sub { font-size: 13px; color: var(--text-muted); margin-top: 3px; }
+    .collection-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
     .seg-group {
       display: inline-flex;
@@ -542,13 +382,9 @@
       font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.18s ease;
     }
 
-    .seg-btn.active {
-      background: var(--accent-grad);
-      color: #fff;
-    }
+    .seg-btn.active { background: var(--accent-grad); color: #fff; }
 
     .export-btn {
       background: var(--pill-bg);
@@ -562,47 +398,28 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.18s ease;
     }
 
-    .export-btn:hover {
-      border-color: var(--accent-1);
-      background: var(--glass-card-hover);
-    }
-
-    /* Hook List */
-    .hooks-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
-    }
+    .hooks-stack { display: flex; flex-direction: column; gap: 11px; }
 
     .hook-item {
       background: var(--glass-card);
       border: 1px solid var(--glass-border);
       border-radius: 16px;
       padding: 14px 16px;
-      transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+      transition: border-color 0.2s ease, background 0.2s ease;
     }
 
-    .hook-item:hover {
-      border-color: var(--glass-border-strong);
-      background: var(--glass-card-hover);
-    }
+    .hook-item:hover { border-color: var(--glass-border-strong); background: var(--glass-card-hover); }
 
-    .hook-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-    }
+    .hook-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
 
     .hook-meta {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 5px;
-      min-width: 78px;
+      min-width: 84px;
       flex-shrink: 0;
     }
 
@@ -627,20 +444,9 @@
       white-space: nowrap;
     }
 
-    .hook-text {
-      flex: 1;
-      font-size: 14.5px;
-      font-weight: 600;
-      color: var(--text-main);
-      word-break: break-word;
-    }
+    .hook-text { flex: 1; font-size: 14.5px; font-weight: 600; color: var(--text-main); word-break: break-word; }
 
-    .hook-controls {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      flex-shrink: 0;
-    }
+    .hook-controls { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
 
     .icon-action {
       background: var(--input-bg);
@@ -654,13 +460,9 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      transition: all 0.16s ease;
     }
 
-    .icon-action:hover {
-      border-color: var(--accent-1);
-      color: var(--text-main);
-    }
+    .icon-action:hover { border-color: var(--accent-1); color: var(--text-main); }
 
     .icon-action.saved {
       background: rgba(236, 72, 153, 0.16);
@@ -686,10 +488,8 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
     }
 
-    /* Expandable 60s Script Box */
     .script-drawer {
       display: none;
       margin-top: 12px;
@@ -699,9 +499,7 @@
       color: var(--text-soft);
     }
 
-    .script-drawer.open {
-      display: block;
-    }
+    .script-drawer.open { display: block; }
 
     .script-grid {
       display: grid;
@@ -726,7 +524,6 @@
       margin-bottom: 4px;
     }
 
-    /* Pro Lock Banner */
     .pro-lock-banner {
       display: flex;
       align-items: center;
@@ -739,33 +536,16 @@
       flex-wrap: wrap;
     }
 
-    .pro-lock-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .pro-lock-left { display: flex; align-items: center; gap: 12px; }
 
     .lock-badge {
-      width: 38px;
-      height: 38px;
-      border-radius: 11px;
-      background: var(--pill-bg);
-      border: 1px solid var(--glass-border-strong);
-      display: grid;
-      place-items: center;
-      font-size: 17px;
-      flex-shrink: 0;
+      width: 38px; height: 38px; border-radius: 11px;
+      background: var(--pill-bg); border: 1px solid var(--glass-border-strong);
+      display: grid; place-items: center; font-size: 17px; flex-shrink: 0;
     }
 
-    .pro-lock-left h3 {
-      font-size: 14.5px;
-      font-weight: 700;
-    }
-
-    .pro-lock-left p {
-      font-size: 12.5px;
-      color: var(--text-muted);
-    }
+    .pro-lock-left h3 { font-size: 14.5px; font-weight: 700; }
+    .pro-lock-left p { font-size: 12.5px; color: var(--text-muted); }
 
     .unlock-cta {
       background: var(--gold-grad);
@@ -776,23 +556,11 @@
       font-size: 13px;
       font-weight: 700;
       cursor: pointer;
-      white-space: nowrap;
     }
 
-    /* Empty Saved State */
-    .empty-state {
-      text-align: center;
-      padding: 44px 18px;
-      color: var(--text-muted);
-    }
+    .empty-state { text-align: center; padding: 44px 18px; color: var(--text-muted); }
+    .empty-state h3 { color: var(--text-main); font-size: 17px; margin-bottom: 6px; }
 
-    .empty-state h3 {
-      color: var(--text-main);
-      font-size: 17px;
-      margin-bottom: 6px;
-    }
-
-    /* Compact Feature & Legal Strip — Zero Blank Space */
     .bottom-strip {
       margin-top: 18px;
       padding: 13px 18px;
@@ -804,21 +572,8 @@
       font-size: 12.5px;
     }
 
-    .feature-pills {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      color: var(--text-soft);
-      font-weight: 500;
-    }
-
-    .legal-links {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
+    .feature-pills { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; color: var(--text-soft); font-weight: 500; }
+    .legal-links { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 
     .link-btn {
       background: transparent;
@@ -827,15 +582,10 @@
       font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
-      padding: 2px 4px;
-      transition: color 0.15s ease;
     }
 
-    .link-btn:hover {
-      color: var(--accent-1);
-    }
+    .link-btn:hover { color: var(--accent-1); }
 
-    /* Modals */
     .modal-backdrop {
       display: none;
       position: fixed;
@@ -849,24 +599,9 @@
       overflow-y: auto;
     }
 
-    .modal-backdrop.open {
-      display: flex;
-    }
+    .modal-backdrop.open { display: flex; }
 
-    .modal-card {
-      width: 100%;
-      max-width: 640px;
-      max-height: 88vh;
-      overflow-y: auto;
-      padding: 24px;
-      position: relative;
-      animation: popIn 0.2s ease-out;
-    }
-
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.96) translateY(8px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
-    }
+    .modal-card { width: 100%; max-width: 640px; max-height: 88vh; overflow-y: auto; padding: 24px; }
 
     .modal-header {
       display: flex;
@@ -878,30 +613,16 @@
       border-bottom: 1px solid var(--glass-border);
     }
 
-    .modal-header h2 {
-      font-size: 20px;
-      font-weight: 800;
-    }
+    .modal-header h2 { font-size: 20px; font-weight: 800; }
 
     .close-btn {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
-      background: var(--pill-bg);
-      border: 1px solid var(--glass-border);
-      color: var(--text-main);
-      font-size: 18px;
-      cursor: pointer;
-      display: grid;
-      place-items: center;
+      width: 34px; height: 34px; border-radius: 10px;
+      background: var(--pill-bg); border: 1px solid var(--glass-border);
+      color: var(--text-main); font-size: 18px; cursor: pointer;
+      display: grid; place-items: center;
     }
 
-    .plan-toggle-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
+    .plan-toggle-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
 
     .plan-box {
       background: var(--input-bg);
@@ -909,30 +630,12 @@
       border-radius: 15px;
       padding: 13px;
       cursor: pointer;
-      transition: all 0.18s ease;
     }
 
-    .plan-box.active {
-      border-color: var(--accent-1);
-      background: rgba(56, 189, 248, 0.12);
-    }
-
-    .plan-box .plan-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-soft);
-    }
-
-    .plan-box .plan-price {
-      font-size: 22px;
-      font-weight: 800;
-      margin: 3px 0;
-    }
-
-    .plan-box .plan-sub {
-      font-size: 11.5px;
-      color: var(--text-muted);
-    }
+    .plan-box.active { border-color: var(--accent-1); background: rgba(56, 189, 248, 0.12); }
+    .plan-box .plan-title { font-size: 13px; font-weight: 700; color: var(--text-soft); }
+    .plan-box .plan-price { font-size: 22px; font-weight: 800; margin: 3px 0; }
+    .plan-box .plan-sub { font-size: 11.5px; color: var(--text-muted); }
 
     .pay-card {
       background: var(--input-bg);
@@ -942,18 +645,8 @@
       margin-bottom: 12px;
     }
 
-    .pay-card-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    .pay-card-top h4 {
-      font-size: 14px;
-      font-weight: 700;
-    }
+    .pay-card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+    .pay-card-top h4 { font-size: 14px; font-weight: 700; }
 
     .detail-line {
       display: flex;
@@ -966,16 +659,8 @@
       flex-wrap: wrap;
     }
 
-    .detail-line:first-of-type {
-      border-top: none;
-    }
-
-    .detail-val {
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-weight: 600;
-      color: var(--text-main);
-      word-break: break-all;
-    }
+    .detail-line:first-of-type { border-top: none; }
+    .detail-val { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 600; color: var(--text-main); word-break: break-all; }
 
     .mini-copy {
       background: var(--pill-bg);
@@ -1008,7 +693,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
       padding: 8px 13px;
       border-radius: 10px;
       background: var(--accent-grad);
@@ -1018,73 +703,24 @@
       text-decoration: none;
     }
 
-    .key-row {
-      display: flex;
-      gap: 8px;
-      margin-top: 8px;
-    }
+    .key-row { display: flex; gap: 8px; margin-top: 8px; }
+    .activate-btn { background: var(--accent-grad); color: #fff; border: none; padding: 0 18px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+    .status-msg { margin-top: 8px; font-size: 12.5px; font-weight: 600; min-height: 18px; }
 
-    .activate-btn {
-      background: var(--accent-grad);
-      color: #fff;
-      border: none;
-      padding: 0 18px;
-      border-radius: 12px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .status-msg {
-      margin-top: 8px;
-      font-size: 12.5px;
-      font-weight: 600;
-      min-height: 18px;
-    }
-
-    .doc-body p, .doc-body li {
-      font-size: 13.5px;
-      color: var(--text-soft);
-      margin-bottom: 10px;
-    }
-
-    .doc-body ul {
-      padding-left: 20px;
-    }
-
-    .doc-body h3 {
-      font-size: 15px;
-      margin: 14px 0 6px;
-      color: var(--text-main);
-    }
+    .doc-body p, .doc-body li { font-size: 13.5px; color: var(--text-soft); margin-bottom: 10px; }
+    .doc-body ul { padding-left: 20px; }
+    .doc-body h3 { font-size: 15px; margin: 14px 0 6px; color: var(--text-main); }
 
     @media (max-width: 960px) {
-      .workspace-grid {
-        grid-template-columns: 1fr;
-      }
-      .generator-card {
-        position: static;
-      }
+      .workspace-grid { grid-template-columns: 1fr; }
+      .generator-card { position: static; }
     }
 
     @media (max-width: 600px) {
-      .form-row-2, .plan-toggle-row {
-        grid-template-columns: 1fr;
-      }
-      .hook-row {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .hook-meta {
-        flex-direction: row;
-        min-width: auto;
-      }
-      .hook-controls {
-        width: 100%;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-      }
+      .form-row-2, .plan-toggle-row { grid-template-columns: 1fr; }
+      .hook-row { flex-direction: column; align-items: flex-start; }
+      .hook-meta { flex-direction: row; min-width: auto; }
+      .hook-controls { width: 100%; justify-content: flex-start; flex-wrap: wrap; }
     }
   </style>
 </head>
@@ -1095,7 +731,6 @@
   </div>
 
   <div class="app-shell">
-    <!-- Top Glass Navigation -->
     <header class="topbar glass-panel">
       <div class="brand" onclick="switchView('all')">
         <div class="brand-mark">H</div>
@@ -1106,44 +741,41 @@
       </div>
 
       <nav class="nav-center">
-        <button class="nav-btn active" id="navGenerator" onclick="switchView('all')">⚡ Generator</button>
-        <button class="nav-btn" id="navSaved" onclick="switchView('saved')">★ My Hooks (<span id="navSavedCount">0</span>)</button>
+        <button type="button" class="nav-btn active" id="navGenerator" onclick="switchView('all')">⚡ Generator</button>
+        <button type="button" class="nav-btn" id="navSaved" onclick="switchView('saved')">♥ My Hooks (<span id="navSavedCount">0</span>)</button>
         <div class="dropdown" id="infoDropdown">
-          <button class="nav-btn" onclick="toggleDropdown(event)">ⓘ Help &amp; Info ▾</button>
+          <button type="button" class="nav-btn" onclick="toggleDropdown(event)">ⓘ Help &amp; Info ▾</button>
           <div class="dropdown-menu">
-            <button class="dropdown-item" onclick="openDocModal('about')">About Us</button>
-            <button class="dropdown-item" onclick="openDocModal('contact')">Contact Us</button>
-            <button class="dropdown-item" onclick="openDocModal('privacy')">Privacy Policy</button>
-            <button class="dropdown-item" onclick="openDocModal('terms')">Terms of Use</button>
+            <button type="button" class="dropdown-item" onclick="openDocModal('about')">About Us</button>
+            <button type="button" class="dropdown-item" onclick="openDocModal('contact')">Contact Us</button>
+            <button type="button" class="dropdown-item" onclick="openDocModal('privacy')">Privacy Policy</button>
+            <button type="button" class="dropdown-item" onclick="openDocModal('terms')">Terms of Use</button>
           </div>
         </div>
       </nav>
 
       <div class="nav-right">
-        <button class="theme-switch" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle Dark or Light Mode" title="Switch Dark / Light Theme">
+        <button type="button" class="theme-switch" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle Dark or Light Mode">
           <span>🌙</span>
           <span>☀️</span>
           <span class="theme-knob"></span>
         </button>
-        <button class="pro-btn" id="headerProBtn" onclick="openProModal()">👑 Upgrade to Pro</button>
+        <button type="button" class="pro-btn" id="headerProBtn" onclick="openProModal()">👑 Upgrade to Pro</button>
       </div>
     </header>
 
-    <!-- Hero -->
     <section class="hero">
       <h1>Stop the scroll. <span class="hero-gradient">Start the conversation.</span></h1>
-      <p>Generate 50 tailored hooks, 60-second video scripts, and save your exact favorite hooks in seconds.</p>
+      <p>50 tailored hooks per platform, 60-second video scripts, and exact saved hooks with zero clutter.</p>
     </section>
 
-    <!-- Main 2-Column Workspace -->
     <main class="workspace-grid">
-      <!-- Left: Generator Form -->
       <section class="glass-panel generator-card">
         <div class="card-head">
           <div class="head-icon">⚡</div>
           <div>
             <h2>Hook Generator</h2>
-            <p>Tailor 50 hooks &amp; scripts to your offer</p>
+            <p>50 distinct hooks per platform &amp; tone</p>
           </div>
         </div>
 
@@ -1159,8 +791,8 @@
           </div>
 
           <div class="form-group">
-            <label for="platformSelect">Platform</label>
-            <select id="platformSelect">
+            <label for="platformSelect">Platform (50 unique hooks each)</label>
+            <select id="platformSelect" onchange="onFilterChange()">
               <option value="YouTube Shorts" selected>YouTube Shorts</option>
               <option value="TikTok">TikTok</option>
               <option value="Instagram Reels">Instagram Reels</option>
@@ -1171,7 +803,7 @@
           <div class="form-row-2">
             <div class="form-group">
               <label for="langSelect">Language</label>
-              <select id="langSelect">
+              <select id="langSelect" onchange="onFilterChange()">
                 <option value="English" selected>English</option>
                 <option value="Roman Urdu">Roman Urdu</option>
               </select>
@@ -1179,7 +811,7 @@
 
             <div class="form-group">
               <label for="toneSelect">Tone Mode</label>
-              <select id="toneSelect">
+              <select id="toneSelect" onchange="onFilterChange()">
                 <option value="Smart Mix" selected>Smart Mix — all angles</option>
                 <option value="Curiosity">Curiosity &amp; Intrigue</option>
                 <option value="Mistake">Mistakes &amp; Pain</option>
@@ -1198,20 +830,19 @@
         </div>
       </section>
 
-      <!-- Right: Hooks & Scripts Collection -->
       <section class="glass-panel collection-card">
         <div class="collection-top">
           <div class="collection-title">
             <h2><span>★</span> <span id="collectionHeading">Your Hook Collection</span></h2>
-            <p class="collection-sub" id="collectionSummary">50 hooks tailored for beginners who want to earn online on YouTube Shorts.</p>
+            <p class="collection-sub" id="collectionSummary"></p>
           </div>
 
           <div class="collection-actions">
             <div class="seg-group" role="tablist">
-              <button class="seg-btn active" id="tabAll" onclick="switchView('all')">All Hooks (<span id="allCountLabel">50</span>)</button>
-              <button class="seg-btn" id="tabSaved" onclick="switchView('saved')">♥ Saved (<span id="savedCountLabel">0</span>)</button>
+              <button type="button" class="seg-btn active" id="tabAll" onclick="switchView('all')">All Hooks (<span id="allCountLabel">50</span>)</button>
+              <button type="button" class="seg-btn" id="tabSaved" onclick="switchView('saved')">♥ Saved (<span id="savedCountLabel">0</span>)</button>
             </div>
-            <button class="export-btn" onclick="exportHooksTxt()">⬇ Export All</button>
+            <button type="button" class="export-btn" onclick="exportHooksTxt()">⬇ Export All</button>
           </div>
         </div>
 
@@ -1219,20 +850,19 @@
       </section>
     </main>
 
-    <!-- Compact Feature & Legal Footer Strip -->
     <footer class="bottom-strip glass-panel">
       <div class="feature-pills">
-        <span>⚡ 50 Unique Hooks</span>
+        <span>⚡ 50 Hooks / Platform</span>
         <span>▶ 60-Second Scripts</span>
         <span>♥ Exact Saved Hooks</span>
         <span>⬇ Export (.TXT)</span>
         <span>🛡 Pro Unlock System</span>
       </div>
       <div class="legal-links">
-        <button class="link-btn" onclick="openDocModal('about')">About Us</button>
-        <button class="link-btn" onclick="openDocModal('contact')">Contact Us</button>
-        <button class="link-btn" onclick="openDocModal('privacy')">Privacy Policy</button>
-        <button class="link-btn" onclick="openDocModal('terms')">Terms of Use</button>
+        <button type="button" class="link-btn" onclick="openDocModal('about')">About Us</button>
+        <button type="button" class="link-btn" onclick="openDocModal('contact')">Contact Us</button>
+        <button type="button" class="link-btn" onclick="openDocModal('privacy')">Privacy Policy</button>
+        <button type="button" class="link-btn" onclick="openDocModal('terms')">Terms of Use</button>
       </div>
     </footer>
   </div>
@@ -1242,7 +872,7 @@
     <div class="modal-card glass-panel" onclick="event.stopPropagation()">
       <div class="modal-header">
         <h2>👑 HookForge Studio — Pro Access</h2>
-        <button class="close-btn" onclick="closeModal('proModal')">✕</button>
+        <button type="button" class="close-btn" onclick="closeModal('proModal')">✕</button>
       </div>
 
       <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:14px;">
@@ -1253,7 +883,7 @@
         <div class="plan-box active" id="planMonthlyBox" onclick="selectPlan('monthly')">
           <div class="plan-title">Monthly Plan</div>
           <div class="plan-price">$15 <span style="font-size:12px; font-weight:500;">/ month</span></div>
-          <div class="plan-sub">Approx. 4,200 PKR • Cancel anytime</div>
+          <div class="plan-sub">Billed monthly • Instant Pro key</div>
         </div>
         <div class="plan-box" id="planYearlyBox" onclick="selectPlan('yearly')">
           <div class="plan-title">Yearly Plan (Best Value)</div>
@@ -1262,7 +892,6 @@
         </div>
       </div>
 
-      <!-- International Gumroad -->
       <div class="pay-card">
         <div class="pay-card-top">
           <h4>🌍 International (Card / PayPal via Gumroad)</h4>
@@ -1273,7 +902,6 @@
         </p>
       </div>
 
-      <!-- Pakistan NayaPay & Easypaisa -->
       <div class="pay-card">
         <div class="pay-card-top">
           <h4>🇵🇰 Pakistan Instant Transfer (NayaPay &amp; Easypaisa)</h4>
@@ -1282,35 +910,35 @@
           <span>NayaPay Title:</span>
           <span>
             <span class="detail-val">Muhammad Shahid</span>
-            <button class="mini-copy" onclick="copyText('Muhammad Shahid', this)">Copy</button>
+            <button type="button" class="mini-copy" data-copy="Muhammad Shahid" onclick="copyFromAttr(this)">Copy</button>
           </span>
         </div>
         <div class="detail-line">
           <span>NayaPay ID:</span>
           <span>
             <span class="detail-val">muhammad.shahid326@nayapay</span>
-            <button class="mini-copy" onclick="copyText('muhammad.shahid326@nayapay', this)">Copy</button>
+            <button type="button" class="mini-copy" data-copy="muhammad.shahid326@nayapay" onclick="copyFromAttr(this)">Copy</button>
           </span>
         </div>
         <div class="detail-line">
           <span>NayaPay Account:</span>
           <span>
             <span class="detail-val">03265821580</span>
-            <button class="mini-copy" onclick="copyText('03265821580', this)">Copy</button>
+            <button type="button" class="mini-copy" data-copy="03265821580" onclick="copyFromAttr(this)">Copy</button>
           </span>
         </div>
         <div class="detail-line">
           <span>NayaPay IBAN:</span>
           <span>
             <span class="detail-val">PK55NAYA1234503265821580</span>
-            <button class="mini-copy" onclick="copyText('PK55NAYA1234503265821580', this)">Copy</button>
+            <button type="button" class="mini-copy" data-copy="PK55NAYA1234503265821580" onclick="copyFromAttr(this)">Copy</button>
           </span>
         </div>
         <div class="detail-line">
           <span>Easypaisa / WhatsApp:</span>
           <span>
             <span class="detail-val">03089423733</span>
-            <button class="mini-copy" onclick="copyText('03089423733', this)">Copy</button>
+            <button type="button" class="mini-copy" data-copy="03089423733" onclick="copyFromAttr(this)">Copy</button>
           </span>
         </div>
         <a id="waScreenshotLink" class="wa-btn" href="https://wa.me/923089423733" target="_blank" rel="noopener">
@@ -1318,7 +946,6 @@
         </a>
       </div>
 
-      <!-- Instant Key Activation -->
       <div class="pay-card">
         <label for="unlockKeyInput">🔑 Enter Pro Unlock Key</label>
         <div class="key-row">
@@ -1338,7 +965,7 @@
     <div class="modal-card glass-panel" onclick="event.stopPropagation()">
       <div class="modal-header">
         <h2 id="docTitle">Information</h2>
-        <button class="close-btn" onclick="closeModal('docModal')">✕</button>
+        <button type="button" class="close-btn" onclick="closeModal('docModal')">✕</button>
       </div>
       <div class="doc-body" id="docContent"></div>
     </div>
@@ -1346,18 +973,129 @@
 
   <script>
     const STORAGE_KEYS = {
-      THEME: 'hookforge_theme_v2',
-      PRO: 'hookforge_pro_active_v2',
-      SAVED_MAP: 'hookforge_saved_exact_v2',
-      STATE: 'hookforge_generator_state_v2'
+      THEME: 'hookforge_theme_v3',
+      PRO: 'hookforge_pro_active_v3',
+      SAVED: 'hookforge_saved_exact_v3',
+      STATE: 'hookforge_generator_state_v3'
     };
 
     const VALID_KEYS = new Set(['HOOKPRO15', 'HOOKPRO99', 'HOOKPRO2026', 'AHMADPRO']);
 
-    const ANGLES = [
-      'Curiosity', 'Pain / Mistake', 'Contrarian', 'Proof', 'Actionable',
-      'Story Hook', 'Bold Claim', 'Shortcut', 'Warning', 'Comparison'
-    ];
+    // Platform-specific opening lines & phrasing so each platform generates 50 distinct hooks
+    const PLATFORM_CONFIG = {
+      'YouTube Shorts': {
+        verbNoun: 'Shorts views and watch time',
+        opener: 'Watch till the end:',
+        urOpener: 'Aakhir tak dekho:'
+      },
+      'TikTok': {
+        verbNoun: 'TikTok reach and saves',
+        opener: 'Wait—before you scroll:',
+        urOpener: 'Ruko, scroll mat karo:'
+      },
+      'Instagram Reels': {
+        verbNoun: 'Reels shares and profile visits',
+        opener: 'Save this Reel for later:',
+        urOpener: 'Is Reel ko save kar lo:'
+      },
+      'X / LinkedIn': {
+        verbNoun: 'post engagement and inbound leads',
+        opener: 'Read this carefully:',
+        urOpener: 'Is baat ko ghaur se parho:'
+      }
+    };
+
+    // Tone-specific English hook templates (50 items per tone)
+    const TONE_TEMPLATES_EN = {
+      'Curiosity': [
+        (t, a, p, c) => `What happens when ${a} test this hidden rule for ${t} on ${p}?`,
+        (t, a, p, c) => `${c.opener} Why do top ${a} get ${t} right on the first try?`,
+        (t, a, p, c) => `One detail about ${t} that almost no ${a} notice on ${p}.`,
+        (t, a, p, c) => `Ever wondered why ${t} works for some ${a} and stalls for others?`,
+        (t, a, p, c) => `Here is the exact pattern behind viral ${t} content for ${a}.`,
+        (t, a, p, c) => `Can you really improve ${t} this fast? Watch what changed for ${a}.`,
+        (t, a, p, c) => `The question that uncovers the real secret of ${t} on ${p}.`,
+        (t, a, p, c) => `Why are smart ${a} quietly shifting how they approach ${t}?`,
+        (t, a, p, c) => `Look closely at what separates average ${t} from high-converting ${t}.`,
+        (t, a, p, c) => `What if your approach to ${t} is only one step away from clicking?`
+      ],
+      'Mistake': [
+        (t, a, p, c) => `Still struggling with ${t}? You might be making this mistake on ${p}.`,
+        (t, a, p, c) => `3 common mistakes ${a} make when trying ${t} too fast.`,
+        (t, a, p, c) => `Do not make this error if you want real results from ${t}.`,
+        (t, a, p, c) => `Why ${a} waste weeks on ${t} before seeing any traction.`,
+        (t, a, p, c) => `If ${t} feels harder than it should on ${p}, check this habit first.`,
+        (t, a, p, c) => `The biggest trap ${a} fall into with ${t} and how to avoid it.`,
+        (t, a, p, c) => `Stop repeating this ${t} mistake if you want better ${c.verbNoun}.`,
+        (t, a, p, c) => `Here is why good ${a} lose momentum with ${t} so early.`,
+        (t, a, p, c) => `A costly mistake in ${t} that is easy to fix once you spot it.`,
+        (t, a, p, c) => `Before you post another ${t} update on ${p}, fix this flaw.`
+      ],
+      'Contrarian': [
+        (t, a, p, c) => `Unpopular opinion: most advice on ${t} hurts ${a} on ${p}.`,
+        (t, a, p, c) => `Stop chasing volume in ${t}. Do this instead for ${a}.`,
+        (t, a, p, c) => `Forget complicated playbooks for ${t} — simplicity wins for ${a}.`,
+        (t, a, p, c) => `Why doing less in ${t} beats overthinking every detail on ${p}.`,
+        (t, a, p, c) => `Most ${a} overcomplicate ${t}. Here is a cleaner alternative.`,
+        (t, a, p, c) => `You do not need louder claims for ${t} — you need sharper focus.`,
+        (t, a, p, c) => `Conventional ${t} tips sound good, but ${a} need practical leverage.`,
+        (t, a, p, c) => `Stop copying everyone else's ${t} format on ${p}. Try this angle.`,
+        (t, a, p, c) => `The standard ${t} routine is outdated for modern ${a}.`,
+        (t, a, p, c) => `Why clarity beats cleverness every time in ${t} for ${a}.`
+      ],
+      'Proof': [
+        (t, a, p, c) => `How ${a} get clearer outcomes with ${t} using a simple structure.`,
+        (t, a, p, c) => `Real breakdown: what makes ${t} convert better for ${a} on ${p}.`,
+        (t, a, p, c) => `I tested this ${t} approach for ${a} — here are the practical takeaways.`,
+        (t, a, p, c) => `One focused adjustment to ${t} that helps ${a} stand out on ${p}.`,
+        (t, a, p, c) => `What happens when ${a} pair ${t} with a clear 60-second message.`,
+        (t, a, p, c) => `A practical example of strong ${t} framing built for ${a}.`,
+        (t, a, p, c) => `Why structured ${t} outperforms random posting for ${a} on ${p}.`,
+        (t, a, p, c) => `Here is what worked consistently when refining ${t} for ${a}.`,
+        (t, a, p, c) => `Turn ${t} into a repeatable system that ${a} can execute daily.`,
+        (t, a, p, c) => `Proof that specific ${t} angles hold attention longer on ${p}.`
+      ],
+      'Smart Mix': [
+        (t, a, p, c) => `Want ${t}? Here is a clear 3-step starting point for ${a}.`,
+        (t, a, p, c) => `Still not seeing traction with ${t}? Check this ${p} habit first.`,
+        (t, a, p, c) => `Stop following generic ${t} advice — try this approach for ${a}.`,
+        (t, a, p, c) => `How ${a} build stronger momentum with ${t} on ${p}.`,
+        (t, a, p, c) => `Follow this quick ${t} checklist before publishing on ${p}.`,
+        (t, a, p, c) => `What I learned after testing ${t} angles for ${a}.`,
+        (t, a, p, c) => `Most ${a} make ${t} heavier than needed. Start here instead.`,
+        (t, a, p, c) => `A faster way for ${a} to structure ${t} without burnout.`,
+        (t, a, p, c) => `Avoid this trap before scaling ${t} for ${a} on ${p}.`,
+        (t, a, p, c) => `Generic ${t} vs. targeted ${t} — see why ${a} respond faster.`
+      ]
+    };
+
+    const TONE_TEMPLATES_UR = {
+      'Curiosity': [
+        (t, a, p, c) => `${c.urOpener} ${p} par ${t} ka yeh hidden rule ${a} ke liye kaise kaam karta hai?`,
+        (t, a, p, c) => `Kya aap ne kabhi socha ke ${t} mein kuch ${a} aage kyon nikal jaate hain?`,
+        (t, a, p, c) => `${t} ki woh choti si baat jo zyada tar ${a} miss kar dete hain.`
+      ],
+      'Mistake': [
+        (t, a, p, c) => `${t} mein abhi tak result nahi mila? ${p} par yeh ghalti check karo.`,
+        (t, a, p, c) => `3 aam ghaltiyan jo ${a} aksar ${t} ke dauran karte hain.`,
+        (t, a, p, c) => `${t} shuru karne se pehle is ghalti se zaroor bach kar raho.`
+      ],
+      'Contrarian': [
+        (t, a, p, c) => `${t} par purane mashware chhoro — ${a} ke liye yeh tareeqa zyada seedha hai.`,
+        (t, a, p, c) => `Har cheez ko mushkil banana band karo; ${t} ka asaan tareeqa yeh hai.`,
+        (t, a, p, c) => `${p} par sab ki copy karne ke bajaye ${a} ke liye yeh angle try karo.`
+      ],
+      'Proof': [
+        (t, a, p, c) => `${a} ke liye ${t} ka practical tareeqa jo real kaam mein madad deta hai.`,
+        (t, a, p, c) => `${p} par ${t} ko behtar banane ka saaf aur asaan formula dekho.`,
+        (t, a, p, c) => `Jab ${a} ${t} ko tarteeb se karte hain toh result kaise behtar hota hai.`
+      ],
+      'Smart Mix': [
+        (t, a, p, c) => `${t} chahiye? ${a} ke liye yeh 3-step formula dekho.`,
+        (t, a, p, c) => `${p} par post karne se pehle ${t} ka yeh asaan step follow karo.`,
+        (t, a, p, c) => `${a} ke liye ${t} shuru karne ka seedha aur practical raasta.`
+      ]
+    };
 
     let appState = {
       topic: 'getting your first freelance client',
@@ -1365,37 +1103,31 @@
       platform: 'YouTube Shorts',
       language: 'English',
       tone: 'Smart Mix',
-      view: 'all', // 'all' | 'saved'
-      plan: 'monthly', // 'monthly' | 'yearly'
+      view: 'all',
+      plan: 'monthly',
       isPro: false,
       hooks: [],
-      savedHooks: [] // Array of exact hook objects { uid, text, angle, topic, audience, platform, language, script }
+      savedHooks: []
     };
 
     function initApp() {
       const savedTheme = localStorage.getItem(STORAGE_KEYS.THEME) || 'dark';
       applyTheme(savedTheme);
-
       appState.isPro = localStorage.getItem(STORAGE_KEYS.PRO) === 'true';
 
       try {
-        const rawSaved = JSON.parse(localStorage.getItem(STORAGE_KEYS.SAVED_MAP) || '[]');
-        if (Array.isArray(rawSaved)) {
-          appState.savedHooks = rawSaved;
-        }
-      } catch (_) {
-        appState.savedHooks = [];
-      }
+        const rawSaved = JSON.parse(localStorage.getItem(STORAGE_KEYS.SAVED) || '[]');
+        if (Array.isArray(rawSaved)) appState.savedHooks = rawSaved;
+      } catch (_) {}
 
       try {
         const rawState = JSON.parse(localStorage.getItem(STORAGE_KEYS.STATE) || 'null');
-        if (rawState && Array.isArray(rawState.hooks) && rawState.hooks.length === 50) {
+        if (rawState) {
           appState.topic = rawState.topic || appState.topic;
           appState.audience = rawState.audience || appState.audience;
           appState.platform = rawState.platform || appState.platform;
           appState.language = rawState.language || appState.language;
           appState.tone = rawState.tone || appState.tone;
-          appState.hooks = rawState.hooks;
         }
       } catch (_) {}
 
@@ -1405,12 +1137,10 @@
       document.getElementById('langSelect').value = appState.language;
       document.getElementById('toneSelect').value = appState.tone;
 
-      if (!appState.hooks.length) {
-        build50Hooks();
-      }
-
+      build50Hooks();
       selectPlan(appState.plan);
       syncProUI();
+      updateTabs();
       renderCollection();
     }
 
@@ -1434,10 +1164,9 @@
       if (dd) dd.classList.remove('open');
     });
 
-    function handleGenerate(e) {
-      e.preventDefault();
-      appState.topic = document.getElementById('topicInput').value.trim() || 'getting clients';
-      appState.audience = document.getElementById('audienceInput').value.trim() || 'creators';
+    function onFilterChange() {
+      appState.topic = document.getElementById('topicInput').value.trim() || 'getting your first freelance client';
+      appState.audience = document.getElementById('audienceInput').value.trim() || 'beginners who want to earn online';
       appState.platform = document.getElementById('platformSelect').value;
       appState.language = document.getElementById('langSelect').value;
       appState.tone = document.getElementById('toneSelect').value;
@@ -1449,114 +1178,54 @@
       renderCollection();
     }
 
+    function handleGenerate(e) {
+      e.preventDefault();
+      onFilterChange();
+    }
+
     function build50Hooks() {
       const t = appState.topic;
       const a = appState.audience;
       const p = appState.platform;
       const lang = appState.language;
       const tone = appState.tone;
+      const pConf = PLATFORM_CONFIG[p] || PLATFORM_CONFIG['YouTube Shorts'];
 
-      const enTemplates = [
-        { angle: 'Curiosity', text: `Want ${t}? Here's the exact 3-step strategy for ${a}...` },
-        { angle: 'Pain / Mistake', text: `Still struggling with ${t}? You might be making this exact mistake...` },
-        { angle: 'Contrarian', text: `Stop chasing old advice on ${t}! Do this instead on ${p}...` },
-        { angle: 'Proof', text: `How ${a} get real results with ${t} without burning out.` },
-        { angle: 'Actionable', text: `Follow this 10-minute ${t} checklist before posting on ${p} today.` },
-        { angle: 'Story Hook', text: `I spent weeks testing ${t} for ${a} — here is what actually worked.` },
-        { angle: 'Bold Claim', text: `Most ${a} overcomplicate ${t}. This simple shift changes everything.` },
-        { angle: 'Shortcut', text: `The fastest shortcut to ${t} that ${a} rarely hear about.` },
-        { angle: 'Warning', text: `Do NOT start ${t} until you watch out for this trap.` },
-        { angle: 'Comparison', text: `Why ${t} feels slow for some ${a} and effortless for others.` },
-
-        { angle: 'Curiosity', text: `What happens when ${a} apply this hidden rule to ${t}?` },
-        { angle: 'Pain / Mistake', text: `3 silent habits ruining your ${t} progress on ${p}.` },
-        { angle: 'Contrarian', text: `Unpopular opinion: ${t} is easier when you ignore this common tip.` },
-        { angle: 'Proof', text: `One small tweak to ${t} that helped ${a} stand out immediately.` },
-        { angle: 'Actionable', text: `If you're starting ${t} from zero today, do these 2 things first.` },
-        { angle: 'Story Hook', text: `Here is the exact turning point I noticed with ${t}.` },
-        { angle: 'Bold Claim', text: `You don't need more hype for ${t} — you need clarity.` },
-        { angle: 'Shortcut', text: `A cleaner, faster way to handle ${t} without wasting hours.` },
-        { angle: 'Warning', text: `If your ${t} isn't converting on ${p}, check this first.` },
-        { angle: 'Comparison', text: `Average ${t} vs. high-converting ${t} for ${a}.` },
-
-        { angle: 'Curiosity', text: `Ever wondered why top ${a} win at ${t} so consistently?` },
-        { angle: 'Pain / Mistake', text: `Stop doing this before you try ${t} one more time.` },
-        { angle: 'Contrarian', text: `Forget perfection — here's what actually moves the needle in ${t}.` },
-        { angle: 'Proof', text: `Real breakdown: how a simple angle fixes ${t} fast.` },
-        { angle: 'Actionable', text: `Use this exact opening line for ${t} on ${p} this week.` },
-        { angle: 'Story Hook', text: `What I learned after watching 100 attempts at ${t}.` },
-        { angle: 'Bold Claim', text: `Your ${t} problem isn't effort — it's positioning.` },
-        { angle: 'Shortcut', text: `Save hours on ${t} with this repeatable framework.` },
-        { angle: 'Warning', text: `The biggest trap ${a} fall into with ${t}.` },
-        { angle: 'Comparison', text: `Generic ${t} vs. tailored ${t} — spot the difference.` },
-
-        { angle: 'Curiosity', text: `One question that reveals the real secret behind ${t}.` },
-        { angle: 'Pain / Mistake', text: `Why most ${a} quit ${t} right before it clicks.` },
-        { angle: 'Contrarian', text: `Stop over-explaining ${t} — keep it sharp like this.` },
-        { angle: 'Proof', text: `A practical look at what makes ${t} work for ${a}.` },
-        { angle: 'Actionable', text: `3 quick lines to upgrade your ${t} pitch on ${p}.` },
-        { angle: 'Story Hook', text: `If I had to restart ${t} for ${a} tomorrow, here's my plan.` },
-        { angle: 'Bold Claim', text: `Clarity beats loudness every single time in ${t}.` },
-        { angle: 'Shortcut', text: `Turn ${t} into a fast, repeatable routine in 5 minutes.` },
-        { angle: 'Warning', text: `Avoid this mistake if you want serious results from ${t}.` },
-        { angle: 'Comparison', text: `Old playbook vs. modern ${t} for ${a}.` },
-
-        { angle: 'Curiosity', text: `Can you really improve ${t} this fast? Watch closely.` },
-        { angle: 'Pain / Mistake', text: `The hidden friction slowing down your ${t} right now.` },
-        { angle: 'Contrarian', text: `Why more volume won't fix weak ${t} on ${p}.` },
-        { angle: 'Proof', text: `How structured ${t} turns cold viewers into serious leads.` },
-        { angle: 'Actionable', text: `Copy this exact structure for your next ${t} post.` },
-        { angle: 'Story Hook', text: `The moment ${t} finally started making sense for ${a}.` },
-        { angle: 'Bold Claim', text: `Make ${t} impossible to scroll past in 3 seconds.` },
-        { angle: 'Shortcut', text: `A zero-fluff way to sharpen your ${t} starting today.` },
-        { angle: 'Warning', text: `Before you scale ${t}, fix this foundation first.` },
-        { angle: 'Final Angle', text: `Your next step for ${t} starts with this one move.` }
-      ];
-
-      const urTemplates = [
-        { angle: 'Curiosity', text: `${t} chahiye? ${a} ke liye yeh 3-step formula dekho...` },
-        { angle: 'Pain / Mistake', text: `Abhi tak ${t} mein result nahi mila? Yeh ghalti check karo...` },
-        { angle: 'Contrarian', text: `${t} par purane mashware chhoro — ${p} par yeh tareeqa azmao!` },
-        { angle: 'Proof', text: `${a} ke liye ${t} ka asaan aur practical tareeqa jo kaam karta hai.` },
-        { angle: 'Actionable', text: `${p} par post karne se pehle ${t} ka yeh 10-minute step follow karo.` },
-        { angle: 'Story Hook', text: `Maine ${a} ke liye ${t} test kiya — asli result yeh nikla.` },
-        { angle: 'Bold Claim', text: `${a} aksar ${t} ko mushkil bana dete hain, jabke asal baat yeh hai.` },
-        { angle: 'Shortcut', text: `${t} ka sab se tez aur seedha tareeqa jo kam log batate hain.` },
-        { angle: 'Warning', text: `${t} shuru karne se pehle is bari ghalti se bach kar raho.` },
-        { angle: 'Comparison', text: `Kuch ${a} ka ${t} jaldi kyon chalta hai aur baakiyon ka kyon rukta hai?` }
-      ];
+      const toneOrder = tone === 'Smart Mix'
+        ? ['Curiosity', 'Mistake', 'Contrarian', 'Proof', 'Smart Mix']
+        : [tone, 'Curiosity', 'Mistake', 'Contrarian', 'Proof'];
 
       const generated = [];
       for (let i = 0; i < 50; i++) {
         const num = i + 1;
-        let item;
+        const bucketTone = i < 25 ? toneOrder[0] : toneOrder[(Math.floor((i - 25) / 6) + 1) % toneOrder.length];
+
+        let hookText = '';
         if (lang === 'Roman Urdu') {
-          const base = urTemplates[i % urTemplates.length];
-          const suffix = i >= 10 ? ` (#${num} variation — ${p} focus)` : '';
-          item = {
-            angle: tone !== 'Smart Mix' && i < 10 ? tone : base.angle,
-            text: `${base.text}${suffix}`
-          };
+          const pool = TONE_TEMPLATES_UR[bucketTone] || TONE_TEMPLATES_UR['Smart Mix'];
+          const fn = pool[i % pool.length];
+          const variationTag = i >= 15 ? ` (${p} tip #${num})` : '';
+          hookText = `${fn(t, a, p, pConf)}${variationTag}`;
         } else {
-          const base = enTemplates[i];
-          item = {
-            angle: tone !== 'Smart Mix' && i < 20 ? tone : base.angle,
-            text: base.text
-          };
+          const pool = TONE_TEMPLATES_EN[bucketTone] || TONE_TEMPLATES_EN['Smart Mix'];
+          const fn = pool[i % pool.length];
+          const variationTag = i >= 20 ? ` [${p} angle #${num}]` : '';
+          hookText = `${fn(t, a, p, pConf)}${variationTag}`;
         }
 
-        const script = buildScriptForHook(item.text, t, a, p, lang);
-        // Unique ID tied to topic + audience + platform + language + hook index so exact hook saving is deterministic
-        const uid = `${encodeURIComponent(t)}|${encodeURIComponent(a)}|${p}|${lang}|${num}`;
+        const script = buildScriptForHook(hookText, t, a, p, lang);
+        // Unique ID includes exact hook text + platform + tone + language so saving never collides
+        const uid = `${p}|${tone}|${lang}|${num}|${encodeURIComponent(hookText)}`;
 
         generated.push({
           index: num,
           uid,
-          angle: item.angle,
-          text: item.text,
+          angle: bucketTone,
+          text: hookText,
           topic: t,
           audience: a,
           platform: p,
+          tone,
           language: lang,
           script
         });
@@ -1569,14 +1238,14 @@
       if (lang === 'Roman Urdu') {
         return {
           hookLine: hookText,
-          body: `Pehle 15–35 sec mein ${audience} ko batayein ke ${topic} mein aam log kahan atakhte hain, phir 2 asaan steps dein jo ${platform} par foran apply kiye ja sakein.`,
-          cta: `Is video ko save karo aur comment mein "${topic}" likho taake agla part miss na ho.`
+          body: `Agle 30–40 seconds mein ${audience} ko ${topic} ka ek clear step samjhayein aur batayein ke ${platform} par isay kaise apply karna hai.`,
+          cta: `Is post ko save karo aur "${topic}" ke agle part ke liye follow karo.`
         };
       }
       return {
         hookLine: hookText,
-        body: `In seconds 10–40, show ${audience} one specific mistake around ${topic} and walk through a clear, practical step tailored for ${platform}.`,
-        cta: `Save this for later and drop "${topic}" in the comments if you want the next breakdown.`
+        body: `In seconds 10–45, walk ${audience} through one concrete step on ${topic} tailored specifically for ${platform}.`,
+        cta: `Save this for later and comment "${topic}" if you want the next breakdown.`
       };
     }
 
@@ -1584,13 +1253,14 @@
       return appState.savedHooks.some(item => item.uid === uid);
     }
 
-    function toggleSaveHook(uid, btnEl) {
+    function toggleSaveFromAttr(btnEl) {
+      const uid = decodeURIComponent(btnEl.getAttribute('data-uid') || '');
+      if (!uid) return;
+
       const idx = appState.savedHooks.findIndex(item => item.uid === uid);
       if (idx > -1) {
-        // Remove ONLY this exact hook
         appState.savedHooks.splice(idx, 1);
       } else {
-        // Find exact hook object from current hooks list
         const target = appState.hooks.find(h => h.uid === uid);
         if (!target) return;
         appState.savedHooks.unshift({
@@ -1600,6 +1270,7 @@
           topic: target.topic,
           audience: target.audience,
           platform: target.platform,
+          tone: target.tone,
           language: target.language,
           script: target.script
         });
@@ -1610,35 +1281,57 @@
 
       if (appState.view === 'saved') {
         renderCollection();
-      } else if (btnEl) {
+      } else {
         const nowSaved = isHookSaved(uid);
         btnEl.classList.toggle('saved', nowSaved);
         btnEl.innerHTML = nowSaved ? '♥ Saved' : '♡ Save';
       }
     }
 
-    function toggleScriptDrawer(drawerId) {
+    function copyFromAttr(btnEl) {
+      const text = decodeURIComponent(btnEl.getAttribute('data-copy') || '');
+      if (!text) return;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => flashCopied(btnEl)).catch(() => fallbackCopy(text, btnEl));
+      } else {
+        fallbackCopy(text, btnEl);
+      }
+    }
+
+    function fallbackCopy(text, btnEl) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        flashCopied(btnEl);
+      } catch (_) {}
+      document.body.removeChild(ta);
+    }
+
+    function flashCopied(btnEl) {
+      if (!btnEl) return;
+      const prev = btnEl.innerHTML;
+      btnEl.classList.add('copied');
+      btnEl.innerHTML = '✓ Copied';
+      setTimeout(() => {
+        btnEl.classList.remove('copied');
+        btnEl.innerHTML = prev;
+      }, 1300);
+    }
+
+    function toggleScriptFromAttr(btnEl) {
       if (!appState.isPro) {
         openProModal();
         return;
       }
+      const drawerId = btnEl.getAttribute('data-drawer');
       const drawer = document.getElementById(drawerId);
-      if (drawer) {
-        drawer.classList.toggle('open');
-      }
-    }
-
-    function copyText(str, btnEl) {
-      navigator.clipboard.writeText(str).then(() => {
-        if (!btnEl) return;
-        const prev = btnEl.innerHTML;
-        btnEl.classList.add('copied');
-        btnEl.innerHTML = '✓ Copied';
-        setTimeout(() => {
-          btnEl.classList.remove('copied');
-          btnEl.innerHTML = prev;
-        }, 1400);
-      }).catch(() => {});
+      if (drawer) drawer.classList.toggle('open');
     }
 
     function switchView(viewName) {
@@ -1676,22 +1369,22 @@
           container.innerHTML = `
             <div class="empty-state">
               <h3>No saved hooks yet</h3>
-              <p>Click <strong>Save</strong> on any specific hook to keep only that exact hook here.</p>
+              <p>Click <strong>Save</strong> on any specific hook to save only that exact hook here.</p>
             </div>
           `;
           return;
         }
 
-        container.innerHTML = appState.savedHooks.map((h, idx) => renderHookCard(h, idx + 1, false)).join('');
+        container.innerHTML = appState.savedHooks.map((h, idx) => renderHookCard(h, idx + 1)).join('');
         return;
       }
 
       heading.textContent = 'Your Hook Collection';
-      summary.textContent = `50 hooks tailored for ${appState.audience} on ${appState.platform}.`;
+      summary.textContent = `50 hooks for ${appState.platform} (${appState.tone} mode) tailored for ${appState.audience}.`;
 
       const freeLimit = 10;
       const visibleHooks = appState.isPro ? appState.hooks : appState.hooks.slice(0, freeLimit);
-      let html = visibleHooks.map(h => renderHookCard(h, h.index, false)).join('');
+      let html = visibleHooks.map(h => renderHookCard(h, h.index)).join('');
 
       if (!appState.isPro) {
         html += `
@@ -1700,7 +1393,7 @@
               <div class="lock-badge">🔒</div>
               <div>
                 <h3>Unlock Pro to access hooks #11 to #50</h3>
-                <p>Get full 50 hooks, 60-second scripts, and export all (.TXT)!</p>
+                <p>Get all 50 ${escapeHtml(appState.platform)} hooks, 60-second scripts, and export all (.TXT).</p>
               </div>
             </div>
             <button type="button" class="unlock-cta" onclick="openProModal()">👑 Unlock Pro</button>
@@ -1711,10 +1404,13 @@
       container.innerHTML = html;
     }
 
-    function renderHookCard(hook, displayNum, isLocked) {
+    function renderHookCard(hook, displayNum) {
       const saved = isHookSaved(hook.uid);
-      const drawerId = `drawer_${hook.uid.replace(/[^a-zA-Z0-9_-]/g, '_')}`;
+      const drawerId = 'drawer_' + btoa(unescape(encodeURIComponent(hook.uid))).replace(/[^a-zA-Z0-9]/g, '').slice(0, 24);
       const numLabel = `#${String(displayNum).padStart(2, '0')}`;
+      const encodedUid = encodeURIComponent(hook.uid);
+      const encodedText = encodeURIComponent(hook.text);
+      const fullScriptText = encodeURIComponent(`Hook: ${hook.script.hookLine}\nBody: ${hook.script.body}\nCTA: ${hook.script.cta}`);
 
       return `
         <article class="hook-item">
@@ -1725,11 +1421,11 @@
             </div>
             <div class="hook-text">${escapeHtml(hook.text)}</div>
             <div class="hook-controls">
-              <button type="button" class="icon-action" onclick="copyText(${JSON.stringify(hook.text)}, this)">❐ Copy</button>
-              <button type="button" class="icon-action ${saved ? 'saved' : ''}" onclick="toggleSaveHook(${JSON.stringify(hook.uid)}, this)">
+              <button type="button" class="icon-action" data-copy="${encodedText}" onclick="copyFromAttr(this)">❐ Copy</button>
+              <button type="button" class="icon-action ${saved ? 'saved' : ''}" data-uid="${encodedUid}" onclick="toggleSaveFromAttr(this)">
                 ${saved ? '♥ Saved' : '♡ Save'}
               </button>
-              <button type="button" class="script-btn" onclick="toggleScriptDrawer('${drawerId}')">
+              <button type="button" class="script-btn" data-drawer="${drawerId}" onclick="toggleScriptFromAttr(this)">
                 ${appState.isPro ? '▶ 60-sec Script' : '🔒 60-sec Script'}
               </button>
             </div>
@@ -1749,7 +1445,7 @@
                 ${escapeHtml(hook.script.cta)}
               </div>
             </div>
-            <button type="button" class="mini-copy" onclick="copyText(${JSON.stringify(`Hook: ${hook.script.hookLine}\nBody: ${hook.script.body}\nCTA: ${hook.script.cta}`)}, this)">
+            <button type="button" class="mini-copy" data-copy="${fullScriptText}" onclick="copyFromAttr(this)">
               Copy Full 60s Script
             </button>
           </div>
@@ -1767,7 +1463,7 @@
       if (!list.length) return;
 
       const lines = list.map((h, i) => [
-        `#${i + 1} [${h.angle}]`,
+        `#${i + 1} [${h.platform} • ${h.angle}]`,
         `Hook: ${h.text}`,
         `60s Script: ${h.script.body} | CTA: ${h.script.cta}`,
         '----------------------------------------'
@@ -1777,12 +1473,11 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `hookforge-${appState.view === 'saved' ? 'saved-hooks' : '50-hooks'}.txt`;
+      a.download = `hookforge-${appState.platform.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-50-hooks.txt`;
       a.click();
       URL.revokeObjectURL(url);
     }
 
-    /* Pro & Payment Logic */
     function openProModal() {
       document.getElementById('proStatusMsg').textContent = '';
       document.getElementById('proModal').classList.add('open');
@@ -1852,7 +1547,6 @@
       }
     }
 
-    /* Info & Legal Pages */
     function openDocModal(docKey) {
       document.getElementById('infoDropdown').classList.remove('open');
       const titleEl = document.getElementById('docTitle');
@@ -1861,17 +1555,17 @@
       if (docKey === 'about') {
         titleEl.textContent = 'About HookForge Studio';
         bodyEl.innerHTML = `
-          <p><strong>HookForge Studio</strong> is built for creators, freelancers, agencies, and online sellers who need high-retention opening hooks and 60-second short-form scripts without staring at a blank screen.</p>
+          <p><strong>HookForge Studio</strong> helps creators, freelancers, agencies, and online sellers generate platform-specific hooks and 60-second scripts quickly.</p>
           <ul>
-            <li><strong>50 Tailored Hooks:</strong> Generated around your exact topic, audience, platform, and language.</li>
-            <li><strong>Exact Hook Saving:</strong> Only the specific hook you save is stored in your library.</li>
-            <li><strong>Instant Pro Activation:</strong> Unlock full 50 hooks, scripts, and .TXT export with a license key.</li>
+            <li><strong>50 Hooks Per Platform:</strong> Tailored for YouTube Shorts, TikTok, Instagram Reels, and X / LinkedIn.</li>
+            <li><strong>Exact Hook Saving:</strong> Only the exact hook you select is saved to your library.</li>
+            <li><strong>Instant Pro Activation:</strong> Unlock full 50 hooks, scripts, and .TXT export with a Pro key.</li>
           </ul>
         `;
       } else if (docKey === 'contact') {
         titleEl.textContent = 'Contact Us';
         bodyEl.innerHTML = `
-          <p>Need help with Pro activation, affiliate partnerships, or custom support? Reach out below or message on WhatsApp (<strong>+92 308 9423733</strong>).</p>
+          <p>Need help with Pro activation or support? Send a message below or reach out on WhatsApp (<strong>+92 308 9423733</strong>).</p>
           <form onsubmit="submitContactForm(event)">
             <div class="form-group">
               <label for="cName">Your Name</label>
@@ -1892,20 +1586,15 @@
       } else if (docKey === 'privacy') {
         titleEl.textContent = 'Privacy Policy';
         bodyEl.innerHTML = `
-          <p>We respect your privacy and keep your workflow lightweight.</p>
-          <h3>Data Storage</h3>
-          <p>Your theme preference, Pro unlock status, and saved hooks are stored locally in your browser via <code>localStorage</code>.</p>
-          <h3>Payments</h3>
-          <p>International payments are processed via Gumroad, and local transfers via NayaPay / Easypaisa are verified directly before issuing a Pro unlock key.</p>
+          <p>Your theme setting, Pro status, and saved hooks are stored locally in your browser using <code>localStorage</code>.</p>
+          <p>International checkouts are processed via Gumroad, and local transfers via NayaPay or Easypaisa are verified directly before issuing a Pro key.</p>
         `;
       } else {
         titleEl.textContent = 'Terms of Use';
         bodyEl.innerHTML = `
-          <p>By using HookForge Studio, you agree to the following terms:</p>
           <ul>
-            <li>Generated hooks and scripts are provided as creative starting points for your own content and outreach.</li>
-            <li>Pro keys unlock full tool access for personal or client work; unauthorized key redistribution is prohibited.</li>
-            <li>Digital access is delivered immediately upon valid key activation.</li>
+            <li>Generated hooks and scripts are provided as creative starting points for your content and outreach.</li>
+            <li>Pro keys unlock full access for personal or client work; unauthorized redistribution is not allowed.</li>
           </ul>
         `;
       }
@@ -1917,19 +1606,18 @@
       e.preventDefault();
       const el = document.getElementById('contactStatus');
       el.style.color = 'var(--success)';
-      el.textContent = '✓ Message recorded! You can also send your payment screenshot directly on WhatsApp (+92 308 9423733).';
+      el.textContent = '✓ Message recorded. You can also message directly on WhatsApp (+92 308 9423733).';
       e.target.reset();
     }
 
     function persistState() {
-      localStorage.setItem(STORAGE_KEYS.SAVED_MAP, JSON.stringify(appState.savedHooks));
+      localStorage.setItem(STORAGE_KEYS.SAVED, JSON.stringify(appState.savedHooks));
       localStorage.setItem(STORAGE_KEYS.STATE, JSON.stringify({
         topic: appState.topic,
         audience: appState.audience,
         platform: appState.platform,
         language: appState.language,
-        tone: appState.tone,
-        hooks: appState.hooks
+        tone: appState.tone
       }));
     }
 
